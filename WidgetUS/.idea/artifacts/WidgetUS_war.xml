@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" build-on-make="true" name="WidgetUS:war">
-    <output-path>$PROJECT_DIR$/out/artifacts/WidgetUS_war</output-path>
-    <root id="archive" name="WidgetUS_war.war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="WidgetUS-1.0.war">
       <element id="artifact" artifact-name="WidgetUS:war exploded" />
     </root>
   </artifact>
