@@ -13,7 +13,8 @@
         </init-param>
         <init-param>
             <param-name>serverName</param-name>
-            <param-value>localhost:8080</param-value>
+            <!--<param-value>localhost:8080</param-value>-->
+            <param-value>s6ie1709.gel.usherbrooke.ca:8080</param-value>
         </init-param>
     </filter>
 
@@ -26,7 +27,8 @@
         </init-param>
         <init-param>
             <param-name>serverName</param-name>
-            <param-value>localhost:8080</param-value>
+            <!--<param-value>localhost:8080</param-value>-->
+            <param-value>s6ie1709.gel.usherbrooke.ca:8080</param-value>
         </init-param>
     </filter>
 
