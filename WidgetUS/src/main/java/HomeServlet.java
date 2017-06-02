@@ -15,6 +15,6 @@ public class HomeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().append("yeah yuh");
+        response.getWriter().append("yeah yuhh");
     }
 }
