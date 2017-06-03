@@ -45,6 +45,7 @@
     ],
     "no-construct": true,
     "no-debugger": true,
+    "no-duplicate-variable": true,
     "no-empty": false,
     "no-empty-interface": true,
     "no-eval": true,
@@ -75,6 +76,7 @@
     ],
     "radix": true,
     "semicolon": [
+      true,
       "always"
     ],
     "triple-equals": [
@@ -105,13 +107,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "gridster",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "gridster",
       "kebab-case"
     ],
     "use-input-property-decorator": true,
