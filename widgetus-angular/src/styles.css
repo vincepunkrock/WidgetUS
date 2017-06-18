@@ -10,4 +10,5 @@ body {
   display: flex;
   flex-direction: column;
   font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: whitesmoke
 }

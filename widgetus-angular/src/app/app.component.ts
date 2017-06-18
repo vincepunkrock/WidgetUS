@@ -9,6 +9,7 @@ import {GridsterConfig} from '../lib/gridsterConfig.interface';
 export class AppComponent implements OnInit {
   options: GridsterConfig;
   dashboard: Array<Object>;
+  MaxWidget: number;
 
   static eventStop(item, scope, event) {
     console.info('eventStop', item, scope);
@@ -27,6 +28,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.MaxWidget = 10;
+
     this.options = {
       gridType: 'fit',
       compactUp: false,
@@ -39,12 +42,12 @@ export class AppComponent implements OnInit {
       maxCols: 10,
       minRows: 1,
       maxRows: 10,
-      maxItemCols: 5,
+      maxItemCols: 10,
       minItemCols: 1,
-      maxItemRows: 50,
+      maxItemRows: 10,
       minItemRows: 1,
-      defaultItemCols: 1,
-      defaultItemRows: 1,
+      defaultItemCols: 5,
+      defaultItemRows: 5,
       fixedColWidth: 250,
       fixedRowHeight: 250,
       draggable: {
@@ -60,22 +63,18 @@ export class AppComponent implements OnInit {
     };
 
     this.dashboard = [
-      {cols: 2, rows: 1, y: 0, x: 0},
-      {cols: 2, rows: 2, y: 0, x: 2, hasContent: true},
-      {cols: 1, rows: 1, y: 0, x: 4},
-      {cols: 1, rows: 1, y: 2, x: 5},
-      {cols: undefined, rows: undefined, y: 1, x: 0},
-      {cols: 1, rows: 1, y: undefined, x: undefined},
-      {cols: 2, rows: 2, y: 3, x: 5, minItemRows: 2, minItemCols: 2, label: 'Min rows & cols = 2'},
-      {cols: 2, rows: 2, y: 2, x: 0, maxItemRows: 2, maxItemCols: 2, label: 'Max rows & cols = 2'},
-      {cols: 2, rows: 1, y: 2, x: 2, dragEnabled: true, resizeEnabled: true, label: 'Drag&Resize Enabled'},
-      {cols: 1, rows: 1, y: 2, x: 4, dragEnabled: false, resizeEnabled: false, label: 'Drag&Resize Disabled'},
-      {cols: 1, rows: 1, y: 2, x: 6, initCallback: AppComponent.itemInit}
+      {cols: 4, rows: 4, y: 0, x: 0},
+      {cols: 2, rows: 2, y: 0, x: 4},
+      {cols: 2, rows: 2, y: 2, x: 4},
     ];
   }
 
   changedOptions() {
     this.options.optionsChanged();
+  }
+  openSettings()
+  {
+   this.addItem(); 
   }
 
   removeItem($event, item) {
@@ -85,6 +84,10 @@ export class AppComponent implements OnInit {
   }
 
   addItem() {
-    this.dashboard.push({});
+    // ici on va pouvoir ajouter dans la BD
+    if(this.dashboard.length < this.MaxWidget)
+    {
+      this.dashboard.push({cols: 2, rows: 2});
+    }
   }
 }

@@ -1,6 +1,16 @@
 
 <div class="page-header">
-	<a class="pull-right btn btn-primary" (click)="addItem()" mdTooltip="Add widget">
+  <a class="pull-right btn btn-primary" (click)="addItem()" title="Add widget">
+      <form  style="background-color:coral, 200px;">
+        <select name="nom" size="1">
+        <option>Horaire
+        <option>Meteo
+        <option>Liste ToDo
+        </select>
+      </form>
+  </a>
+
+	<a class="pull-right btn btn-primary" (click)="addItem()" title="Add widget">
     <i class="glyphicon glyphicon-plus">
     </i>
      Add Widget
