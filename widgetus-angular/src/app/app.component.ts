@@ -29,8 +29,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.options = {
       gridType: 'fit',
-      compactUp: true,
-      compactLeft: true,
+      compactUp: false,
+      compactLeft: false,
       itemChangeCallback: AppComponent.itemChange,
       itemResizeCallback: AppComponent.itemResize,
       margin: 10,
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
         enabled: true,
         stop: AppComponent.eventStop
       },
-      swap: true,
+      swap: false,
       displayGrid: 'none'
     };
 
