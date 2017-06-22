@@ -15,10 +15,12 @@ import {
 
 import {AppComponent} from './app.component';
 import {GridsterModule} from '../lib/gridster.module';
+import { OpusNavbarComponent } from './opus-navbar/opus-navbar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    OpusNavbarComponent
   ],
   imports: [
     BrowserModule,
