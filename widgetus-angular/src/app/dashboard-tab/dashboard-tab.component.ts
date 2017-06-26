@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'gridster-dashboard-tab',
@@ -13,6 +13,7 @@ export class DashboardTabComponent implements OnInit {
 
   @Input() tabName;
   @Input() tabActive;
+  @Output() onActivedTab = new EventEmitter<string>();
 
   constructor() {
   }
@@ -20,4 +21,7 @@ export class DashboardTabComponent implements OnInit {
   ngOnInit() {
   }
 
+  onLoadDashboard() {
+    this.onActivedTab.emit(this.tabName);
+  }
 }

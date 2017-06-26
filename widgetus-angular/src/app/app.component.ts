@@ -9,8 +9,10 @@ import {GridsterComponent} from '../lib/gridster.component';
 })
 export class AppComponent implements OnInit {
   options: GridsterConfig;
-  dashboards: Array<Object>;
+  dashboards;
   dashboard: Array<Object>;
+  widgets: Array<Object>;
+  activeDashboard = 0;
   MaxWidget: number;
 
   static eventStop(item, scope, event) {
@@ -65,15 +67,22 @@ export class AppComponent implements OnInit {
     };
 
     this.dashboards = [
-      {name: 'dash 1', active: true, widgets: [{cols: 4, rows: 4, y: 0, x: 0}, {cols: 2, rows: 2, y: 0, x: 4},{cols: 2, rows: 2, y: 2, x: 4}]},
+      {name: 'dash 1', active: false, widgets: [{cols: 4, rows: 4, y: 0, x: 0}, {cols: 2, rows: 2, y: 0, x: 4},{cols: 2, rows: 2, y: 2, x: 4}]},
       {name: 'dash 2', active: false, widgets: []},
       {name: 'dash 3', active: false, widgets: []}
     ];
+
     // this.dashboard = [
     //   {cols: 4, rows: 4, y: 0, x: 0},
     //   {cols: 2, rows: 2, y: 0, x: 4},
     //   {cols: 2, rows: 2, y: 2, x: 4},
     // ];
+
+    this.widgets = [
+      {cols: 4, rows: 4, y: 0, x: 0},
+      {cols: 2, rows: 2, y: 0, x: 4},
+      {cols: 2, rows: 2, y: 2, x: 4},
+    ];
   }
 
   changedOptions() {
@@ -87,14 +96,18 @@ export class AppComponent implements OnInit {
   removeItem($event, item) {
     $event.preventDefault();
     $event.stopPropagation();
-    this.dashboard.splice(this.dashboard.indexOf(item), 1);
+    this.widgets.splice(this.widgets.indexOf(item), 1);
   }
 
   addItem() {
     // ici on va pouvoir ajouter dans la BD
-    if(this.dashboard.length < this.MaxWidget)
+    if (this.widgets.length < this.MaxWidget)
     {
-      this.dashboard.push({cols: 2, rows: 2});
+      this.widgets.push({cols: 2, rows: 2});
     }
+  }
+
+  onNewDashboard(newDashboardName: string) {
+    this.dashboards.push({name: newDashboardName, active: false, widgets: []});
   }
 }

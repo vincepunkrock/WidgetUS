@@ -1,5 +1,6 @@
 <ul class="nav navbar-nav">
-  <li [ngClass]="{active: tabActive == true}" data-toggle="tabs">
-    <a href="#">{{tabName}}</a>
+  <li (click)="onLoadDashboard()" style="cursor: pointer" [ngClass]="{active: tabActive == tabName}">
+  <!--<li (click)="onLoadDashboard()" style="cursor: pointer" [ngClass]="{active: tabActive == true}">-->
+    <a>{{tabName}}</a>
   </li>
 </ul>

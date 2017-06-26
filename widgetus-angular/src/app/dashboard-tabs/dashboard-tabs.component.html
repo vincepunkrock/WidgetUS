@@ -5,10 +5,9 @@
     </div>
     <ul class="nav navbar-nav">
       <li *ngFor="let tab of dashboards">
-        <gridster-dashboard-tab [tabName]="tab.name" [tabActive]="tab.active"></gridster-dashboard-tab>
+        <gridster-dashboard-tab [tabName]="tab.name" [(tabActive)]="activeTab" (onActivedTab)="onActivedTab($event)"></gridster-dashboard-tab>
       </li>
     </ul>
-
     <ul class="nav navbar-nav navbar-right dropdown">
       <!--<li style="cursor: pointer" (click)="onAddDashboard()"><a><span class="glyphicon glyphicon-plus"></span> Dashboard</a></li>-->
       <li class="dropdown-toggle" role="button" id="addDashbord" data-toggle="dropdown" style="cursor: pointer">
@@ -16,7 +15,7 @@
       </li>
       <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
         <li role="presentation"><input type="text" class="form-control" [(ngModel)]="newDashboardName"></li>
-        <li role="presentation"><button (click)="onAddDashboard()">Submit</button></li>
+        <li role="presentation"><button (click)="onAddDashboard()" >Submit</button></li>
       </ul>
     </ul>
   </div>

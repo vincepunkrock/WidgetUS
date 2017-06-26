@@ -18,15 +18,15 @@
 	<h1 style="display: inline-block; width: 200px;">Dashboard</h1>
 </div>
 
-<gridster-dashboard-tabs [dashboards]="dashboards"></gridster-dashboard-tabs>
+<gridster-dashboard-tabs [(dashboards)]="dashboards" (onNewDashboard)="onNewDashboard($event)"></gridster-dashboard-tabs>
 
 <gridster [options]="options">
-  <gridster-item [item]="dashboard.widgets" *ngFor="let dashboard of dashboards">
+  <gridster-item [item]="item" *ngFor="let item of widgets">
     <div class="box" ng-controller="CustomWidgetCtrl">
     <div class="box-header">
       <h3>Widget</h3>
 					<div class="box-header-btns pull-right">
-						<a title="Remove widget" (click)="removeItem($event, dashboard.widgets)"><i class="glyphicon glyphicon-trash"></i></a>
+						<a title="Remove widget" (click)="removeItem($event, item)"><i class="glyphicon glyphicon-trash"></i></a>
 					</div>
     </div>
     </div>
