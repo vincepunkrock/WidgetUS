@@ -72,9 +72,9 @@ export class AppComponent implements OnInit {
   changedOptions() {
     this.options.optionsChanged();
   }
-  openSettings()
-  {
-   this.addItem(); 
+
+  openSettings() {
+    this.addItem();
   }
 
   removeItem($event, item) {
@@ -85,9 +85,8 @@ export class AppComponent implements OnInit {
 
   addItem() {
     // ici on va pouvoir ajouter dans la BD
-    if(this.dashboard.length < this.MaxWidget)
-    {
-      this.dashboard.push({cols: 2, rows: 2});
+    if (this.dashboard.length < this.MaxWidget) {
+      this.dashboard.push({cols: 2, rows: 2, name: 'Horaire'});
     }
   }
 }

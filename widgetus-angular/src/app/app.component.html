@@ -23,7 +23,7 @@
   <gridster-item [item]="item" *ngFor="let item of dashboard">
     <div class="box" ng-controller="CustomWidgetCtrl">
     <div class="box-header">
-      <h3>Widget</h3>
+      <h3>{{ item.name }}</h3>
 					<div class="box-header-btns pull-right">
 						<a title="Remove widget" (click)="removeItem($event, item)"><i class="glyphicon glyphicon-trash"></i></a>
 					</div>
