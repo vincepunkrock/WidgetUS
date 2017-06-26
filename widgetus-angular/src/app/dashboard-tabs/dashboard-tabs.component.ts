@@ -11,6 +11,7 @@ export class DashboardTabsComponent implements OnInit {
 
   @Input() dashboards;
   @Output() onNewDashboard = new EventEmitter<string>();
+  @Output() onChangeActiveTab = new EventEmitter<string>();
   newDashboardName = '';
   activeTab;
 
@@ -25,11 +26,11 @@ export class DashboardTabsComponent implements OnInit {
   }
 
   onAddDashboard() {
-    // this.dashboards.push({name: this.newDashboardName, active: false});
     this.onNewDashboard.emit(this.newDashboardName);
   }
 
   onActivedTab(name: string) {
     this.activeTab = name;
+    this.onChangeActiveTab.emit(name);
   }
 }

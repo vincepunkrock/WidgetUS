@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GridsterConfig} from '../lib/gridsterConfig.interface';
-import {GridsterComponent} from '../lib/gridster.component';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'gridster-root',
@@ -12,8 +12,9 @@ export class AppComponent implements OnInit {
   dashboards;
   dashboard: Array<Object>;
   widgets: Array<Object>;
-  activeDashboard = 0;
+  activeDashboardID = 0;
   MaxWidget: number;
+  activeDashboardName: string;
 
   static eventStop(item, scope, event) {
     console.info('eventStop', item, scope);
@@ -72,17 +73,7 @@ export class AppComponent implements OnInit {
       {name: 'dash 3', active: false, widgets: []}
     ];
 
-    // this.dashboard = [
-    //   {cols: 4, rows: 4, y: 0, x: 0},
-    //   {cols: 2, rows: 2, y: 0, x: 4},
-    //   {cols: 2, rows: 2, y: 2, x: 4},
-    // ];
-
-    this.widgets = [
-      {cols: 4, rows: 4, y: 0, x: 0},
-      {cols: 2, rows: 2, y: 0, x: 4},
-      {cols: 2, rows: 2, y: 2, x: 4},
-    ];
+    this.widgets = this.dashboards[this.activeDashboardID].widgets;
   }
 
   changedOptions() {
@@ -109,5 +100,11 @@ export class AppComponent implements OnInit {
 
   onNewDashboard(newDashboardName: string) {
     this.dashboards.push({name: newDashboardName, active: false, widgets: []});
+  }
+
+  onChangeActiveTab(newActiveDashboard: string) {
+    this.activeDashboardName = newActiveDashboard;
+    this.activeDashboardID = _.indexOf(_.pluck(this.dashboards, 'name'), this.activeDashboardName);
+    this.widgets = this.dashboards[this.activeDashboardID].widgets;
   }
 }

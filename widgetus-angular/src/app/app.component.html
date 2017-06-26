@@ -18,7 +18,7 @@
 	<h1 style="display: inline-block; width: 200px;">Dashboard</h1>
 </div>
 
-<gridster-dashboard-tabs [(dashboards)]="dashboards" (onNewDashboard)="onNewDashboard($event)"></gridster-dashboard-tabs>
+<gridster-dashboard-tabs [(dashboards)]="dashboards" (onNewDashboard)="onNewDashboard($event)" (onChangeActiveTab)="onChangeActiveTab($event)"></gridster-dashboard-tabs>
 
 <gridster [options]="options">
   <gridster-item [item]="item" *ngFor="let item of widgets">
