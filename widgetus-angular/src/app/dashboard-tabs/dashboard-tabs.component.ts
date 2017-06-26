@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'gridster-dashboard-tabs',
@@ -7,11 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardTabsComponent implements OnInit {
 
-  dashboards = [
-    {name: 'dashboard1', active: true},
-    {name: 'dashboard2', active: false},
-    {name: 'dashboard3', active: false}
-    ];
+  @Input() dashboards;
   newDashboardName = '';
 
   constructor() {

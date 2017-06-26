@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GridsterConfig} from '../lib/gridsterConfig.interface';
+import {GridsterComponent} from '../lib/gridster.component';
 
 @Component({
   selector: 'gridster-root',
@@ -8,6 +9,7 @@ import {GridsterConfig} from '../lib/gridsterConfig.interface';
 })
 export class AppComponent implements OnInit {
   options: GridsterConfig;
+  dashboards: Array<Object>;
   dashboard: Array<Object>;
   MaxWidget: number;
 
@@ -62,11 +64,16 @@ export class AppComponent implements OnInit {
       displayGrid: 'none'
     };
 
-    this.dashboard = [
-      {cols: 4, rows: 4, y: 0, x: 0},
-      {cols: 2, rows: 2, y: 0, x: 4},
-      {cols: 2, rows: 2, y: 2, x: 4},
+    this.dashboards = [
+      {name: 'dash 1', active: true, widgets: [{cols: 4, rows: 4, y: 0, x: 0}, {cols: 2, rows: 2, y: 0, x: 4},{cols: 2, rows: 2, y: 2, x: 4}]},
+      {name: 'dash 2', active: false, widgets: []},
+      {name: 'dash 3', active: false, widgets: []}
     ];
+    // this.dashboard = [
+    //   {cols: 4, rows: 4, y: 0, x: 0},
+    //   {cols: 2, rows: 2, y: 0, x: 4},
+    //   {cols: 2, rows: 2, y: 2, x: 4},
+    // ];
   }
 
   changedOptions() {
@@ -74,7 +81,7 @@ export class AppComponent implements OnInit {
   }
   openSettings()
   {
-   this.addItem(); 
+   this.addItem();
   }
 
   removeItem($event, item) {
