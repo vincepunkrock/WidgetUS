@@ -25,7 +25,10 @@
   "files": [
     "dist/*"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "@types/underscore": "^1.8.1",
+    "underscore": "^1.8.3"
+  },
   "devDependencies": {
     "@angular/animations": "4.1.3",
     "@angular/cli": "1.1.0",

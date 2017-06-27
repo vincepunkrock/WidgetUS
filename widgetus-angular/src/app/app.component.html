@@ -1,8 +1,6 @@
 <gridster-opus-navbar></gridster-opus-navbar>
 
 <div class="page-header">
-  <h1 style="display: inline-block; width:200px">Dashboard</h1>
-
   <a class="dropdown">
     <button class="drop-btn"><b>+ Add Widget</b></button>
     <div class="dropdown-content">
@@ -13,9 +11,10 @@
   </a>
 </div>
 
+<gridster-dashboard-tabs [(dashboards)]="dashboards" (onNewDashboard)="onNewDashboard($event)" (onChangeActiveTab)="onChangeActiveTab($event)"></gridster-dashboard-tabs>
 
 <gridster [options]="options">
-  <gridster-item [item]="item" *ngFor="let item of dashboard">
+  <gridster-item [item]="item" *ngFor="let item of widgets">
     <div class="box" ng-controller="CustomWidgetCtrl">
     <div class="box-header">
       <h3>Widget</h3>
