@@ -87,8 +87,8 @@ export class AppComponent implements OnInit {
   changedOptions() {
     this.options.optionsChanged();
   }
-  openSettings() {
-   this.addItem();
+  openSettings(wname: string, widgettype: string) {
+   this.addItem(wname, widgettype);
   }
 
   removeItem($event, item) {
@@ -97,11 +97,13 @@ export class AppComponent implements OnInit {
     this.widgets.splice(this.widgets.indexOf(item), 1);
   }
 
-  addItem() {
+  addItem(wname: string, widgettype: string) {
     // ici on va pouvoir ajouter dans la BD
-    if (this.widgets.length < this.MaxWidget)
-    {
-      this.widgets.push({cols: 2, rows: 2});
+    if (this.widgets.length < this.MaxWidget) {
+      if(widgettype == 'meteo' || widgettype == 'horaire' || widgettype == 'list')
+      {
+        this.widgets.push({cols: 2, rows: 2, name: wname, wtype: widgettype});
+      }
     }
   }
 
