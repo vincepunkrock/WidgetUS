@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GridsterConfig} from '../lib/gridsterConfig.interface';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'gridster-root',
@@ -8,8 +9,12 @@ import {GridsterConfig} from '../lib/gridsterConfig.interface';
 })
 export class AppComponent implements OnInit {
   options: GridsterConfig;
+  dashboards;
   dashboard: Array<Object>;
+  widgets: Array<Object>;
+  activeDashboardID = 0;
   MaxWidget: number;
+  activeDashboardName: string;
 
   static eventStop(item, scope, event) {
     console.info('eventStop', item, scope);
@@ -62,31 +67,44 @@ export class AppComponent implements OnInit {
       displayGrid: 'none'
     };
 
-    this.dashboard = [
-      {cols: 4, rows: 4, y: 0, x: 0, name: 'Horaire'},
-      {cols: 2, rows: 2, y: 0, x: 4, name: 'Horaire'},
-      {cols: 2, rows: 2, y: 2, x: 4, name: 'Météo'},
+    this.dashboards = [
+      {name: 'dash 1', active: false, widgets: [{cols: 4, rows: 4, y: 0, x: 0}, {cols: 2, rows: 2, y: 0, x: 4},{cols: 2, rows: 2, y: 2, x: 4}]},
+      {name: 'dash 2', active: false, widgets: []},
+      {name: 'dash 3', active: false, widgets: []}
     ];
+
+    this.widgets = this.dashboards[this.activeDashboardID].widgets;
   }
 
   changedOptions() {
     this.options.optionsChanged();
   }
-
-  openSettings() {
-    this.addItem();
+  openSettings()
+  {
+   this.addItem();
   }
 
   removeItem($event, item) {
     $event.preventDefault();
     $event.stopPropagation();
-    this.dashboard.splice(this.dashboard.indexOf(item), 1);
+    this.widgets.splice(this.widgets.indexOf(item), 1);
   }
 
   addItem() {
     // ici on va pouvoir ajouter dans la BD
-    if (this.dashboard.length < this.MaxWidget) {
-      this.dashboard.push({cols: 2, rows: 2, name: 'Horaire'});
+    if (this.widgets.length < this.MaxWidget)
+    {
+      this.widgets.push({cols: 2, rows: 2});
     }
+  }
+
+  onNewDashboard(newDashboardName: string) {
+    this.dashboards.push({name: newDashboardName, active: false, widgets: []});
+  }
+
+  onChangeActiveTab(newActiveDashboard: string) {
+    this.activeDashboardName = newActiveDashboard;
+    this.activeDashboardID = _.indexOf(_.pluck(this.dashboards, 'name'), this.activeDashboardName);
+    this.widgets = this.dashboards[this.activeDashboardID].widgets;
   }
 }
