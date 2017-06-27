@@ -35,7 +35,8 @@ import { HttpModule } from '@angular/http';
     FormsModule,
     HttpModule,
     MdIconModule, MdButtonModule, MdSelectModule, MdSliderModule, MdInputModule, MdTooltipModule, MdCheckboxModule,
-    GridsterModule
+    GridsterModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
