@@ -1,21 +1,16 @@
 <gridster-opus-navbar></gridster-opus-navbar>
-<div class="page-header">
-  <a class="pull-right btn btn-primary" (click)="addItem()" title="Add widget">
-      <form  style="background-color:coral, 200px;">
-        <select name="nom" size="1">
-        <option>Horaire
-        <option>Meteo
-        <option>Liste ToDo
-        </select>
-      </form>
-  </a>
 
-	<a class="pull-right btn btn-primary" (click)="addItem()" title="Add widget">
-    <i class="glyphicon glyphicon-plus">
-    </i>
-     Add Widget
+<div class="page-header">
+  <h1 style="display: inline-block; width:200px">Dashboard</h1>
+
+  <a class="dropdown">
+    <button class="drop-btn"><b>+ Add Widget</b></button>
+    <div class="dropdown-content">
+      <a (click)="addItem()">Météo</a>
+      <a (click)="addItem()">Horarius</a>
+      <a (click)="addItem()">ToDoList</a>
+    </div>
   </a>
-	<h1 style="display: inline-block; width: 200px;">Dashboard</h1>
 </div>
 
 
