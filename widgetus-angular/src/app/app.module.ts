@@ -18,13 +18,15 @@ import {GridsterModule} from '../lib/gridster.module';
 import { OpusNavbarComponent } from './opus-navbar/opus-navbar.component';
 import { DashboardTabComponent } from './dashboard-tab/dashboard-tab.component';
 import { DashboardTabsComponent } from './dashboard-tabs/dashboard-tabs.component';
+import { WidgetMeteoComponent } from './widget-meteo/widget-meteo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OpusNavbarComponent,
     DashboardTabComponent,
-    DashboardTabsComponent
+    DashboardTabsComponent,
+    WidgetMeteoComponent
   ],
   imports: [
     BrowserModule,
