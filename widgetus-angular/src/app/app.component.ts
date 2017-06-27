@@ -74,23 +74,21 @@ export class AppComponent implements OnInit {
       displayGrid: 'none'
     };
 
-    this.dashboards = [
-      {name: 'dash 1', widgets: [{cols: 4, rows: 4, y: 0, x: 0}, {cols: 2, rows: 2, y: 0, x: 4},{cols: 2, rows: 2, y: 2, x: 4}]},
-      {name: 'dash 2', widgets: []},
-      {name: 'dash 3', widgets: []}
-    ];
+    this.loadDashboard();
+    // this.dashboards = [
+    //   {name: 'dash 1', widgets: [{cols: 4, rows: 4, y: 0, x: 0}, {cols: 2, rows: 2, y: 0, x: 4},{cols: 2, rows: 2, y: 2, x: 4}]},
+    //   {name: 'dash 2', widgets: []},
+    //   {name: 'dash 3', widgets: []}
+    // ];
 
-    this.widgets = this.dashboards[this.activeDashboardID].widgets;
+    // this.widgets = this.dashboards[this.activeDashboardID].widgets;
 
-    this.getDashboards();
-    this.getDashboards();
   }
 
   changedOptions() {
     this.options.optionsChanged();
   }
-  openSettings()
-  {
+  openSettings() {
    this.addItem();
   }
 
@@ -127,43 +125,38 @@ export class AppComponent implements OnInit {
       );
   }
 
- loadDashboard() {
-    this.getDashboards();
-  }
-
-  getDashboards() {
+  loadDashboard() {
     this._httpService.getDashboards()
       .subscribe(
-        data => this.getData = JSON.stringify(data),
+        data => {
+          // this.getData = JSON.stringify(data);
+
+          let groups = _.groupBy(data, function(value:any){
+            return value.cip + '#' + value.dashboard_name;
+          });
+
+          this.dashboards = _.map(groups, function(group){
+            return {
+              cip: group[0].cip,
+              name: group[0].dashboard_name,
+              widgets: _.map(group, function(config){
+                return {
+                  id: config.widget_id,
+                  type: config.widget_type,
+                  cols: config.y_position,
+                  rows: config.x_position,
+                  x: config.width,
+                  y: config.height
+                };
+              })
+            };
+          });
+          this.test = JSON.stringify(this.dashboards);
+          this.widgets = this.dashboards[this.activeDashboardID].widgets;
+        },
         error => alert(error),
         () => console.log('Finished')
       );
-
-    this.test = JSON.parse(this.getData);
-
-    let groups = _.groupBy(this.test, function(value:any){
-      return value.cip + '#' + value.dashboard_name;
-    });
-
-    let data = _.map(groups, function(group){
-      return {
-        cip: group[0].cip,
-        name: group[0].dashboard_name,
-        widgets: _.map(group, function(config){
-          return {
-            id: config.widget_id,
-            type: config.widget_type,
-            cols: config.y_position,
-            rows: config.x_position,
-            x: config.width,
-            y: config.height
-          };
-        })
-      };
-    });
-
-    this.dashboards = data;
-    this.test = JSON.stringify(data);
 
   }
 }
