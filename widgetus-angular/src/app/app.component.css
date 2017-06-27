@@ -10,18 +10,12 @@
 
 .controls
 {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .page-header
 {
-    margin-top: 20px;
-}
-
-.dashboard-title
-{
-  display:inline-flex;
-  width:200px;
+    margin-top: 5px;
 }
 
 .box
