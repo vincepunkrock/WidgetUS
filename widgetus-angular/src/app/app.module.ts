@@ -18,6 +18,7 @@ import {GridsterModule} from '../lib/gridster.module';
 import { OpusNavbarComponent } from './opus-navbar/opus-navbar.component';
 import { DashboardTabComponent } from './dashboard-tab/dashboard-tab.component';
 import { DashboardTabsComponent } from './dashboard-tabs/dashboard-tabs.component';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DashboardTabsComponent } from './dashboard-tabs/dashboard-tabs.componen
     BrowserAnimationsModule,
     FormsModule,
     MdIconModule, MdButtonModule, MdSelectModule, MdSliderModule, MdInputModule, MdTooltipModule, MdCheckboxModule,
-    GridsterModule
+    GridsterModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

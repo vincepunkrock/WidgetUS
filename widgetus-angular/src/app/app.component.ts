@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {GridsterConfig} from '../lib/gridsterConfig.interface';
+import {HttpService} from './http.service';
 import * as _ from 'underscore';
 
 @Component({
   selector: 'gridster-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [HttpService]
 })
 export class AppComponent implements OnInit {
   options: GridsterConfig;
@@ -15,6 +17,9 @@ export class AppComponent implements OnInit {
   activeDashboardID = 0;
   MaxWidget: number;
   activeDashboardName: string;
+  getData: string;
+
+  constructor(private _httpService: HttpService) {}
 
   static eventStop(item, scope, event) {
     console.info('eventStop', item, scope);
@@ -106,5 +111,14 @@ export class AppComponent implements OnInit {
     this.activeDashboardName = newActiveDashboard;
     this.activeDashboardID = _.indexOf(_.pluck(this.dashboards, 'name'), this.activeDashboardName);
     this.widgets = this.dashboards[this.activeDashboardID].widgets;
+  }
+
+  onTestGet() {
+    this._httpService.getUsers()
+      .subscribe(
+        data => this.getData = JSON.stringify(data),
+        error => alert(error),
+        () => console.log('Finished')
+      );
   }
 }
