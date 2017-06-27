@@ -28,6 +28,7 @@ export class GridsterItemComponent implements OnInit, OnDestroy {
   itemMargin: number;
   drag: GridsterDraggable;
   resize: GridsterResizable;
+  name: string;
 
   constructor(el: ElementRef, @Host() gridster: GridsterComponent, public renderer: Renderer2) {
     this.el = el.nativeElement;
@@ -42,7 +43,8 @@ export class GridsterItemComponent implements OnInit, OnDestroy {
       maxItemRows: undefined,
       minItemRows: undefined,
       maxItemCols: undefined,
-      minItemCols: undefined
+      minItemCols: undefined,
+      name : undefined
     };
 
     this.gridster = gridster;

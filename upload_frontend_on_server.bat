@@ -1,0 +1,1 @@
+pscp -l gagv2103 -pw butterbrot123 -r .\widgetus-angular\dist\* gagv2103@10.43.158.122:/var/local/tomcat9/webapps/widgetus
