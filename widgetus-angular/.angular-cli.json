@@ -1,12 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "angular-gridster2"
+    "name": "widgetus"
   },
   "apps": [
     {
       "root": "src",
-      "outDir": "demo",
+      "outDir": "dist",
       "assets": [
         "assets",
         "favicon.ico"
