@@ -2,6 +2,7 @@
 
 # compiled output
 /demo
+/dist
 /.tmp
 
 # dependencies

@@ -23,12 +23,13 @@
 <gridster [options]="options">
   <gridster-item [item]="item" *ngFor="let item of widgets">
     <div class="box" ng-controller="CustomWidgetCtrl">
-    <div class="box-header">
-      <h3>Widget</h3>
-					<div class="box-header-btns pull-right">
-						<a title="Remove widget" (click)="removeItem($event, item)"><i class="glyphicon glyphicon-trash"></i></a>
-					</div>
-    </div>
+      <div class="box-header">
+        <h3>Widget</h3>
+            <div class="box-header-btns pull-right">
+              <a title="Remove widget" (click)="removeItem($event, item)"><i class="glyphicon glyphicon-trash"></i></a>
+            </div>
+      </div>
+      <gridster-widget-meteo *ngIf="item.wtype == 'meteo'"></gridster-widget-meteo>
     </div>
   </gridster-item>
 </gridster>
