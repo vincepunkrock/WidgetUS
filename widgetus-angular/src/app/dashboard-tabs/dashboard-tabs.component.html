@@ -15,16 +15,16 @@
       </li>
       <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
         <li role="presentation"><input type="text" class="form-control" [(ngModel)]="newDashboardName"></li>
-        <li role="presentation"><button (click)="onAddDashboard()" >Submit</button></li>
+        <li role="presentation"><button (click)="onAddDashboard()" >Ajouter</button></li>
       </ul>
     </ul>
      <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajouter widget<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a (click)="addItem('Météo','meteo')">Météo</a></li>
-            <li><a (click)="addItem('Horaire','horaire')">Horaire</a></li>
-            <li><a (click)="addItem('Liste de taches','list')">Tâche à faire</a></li>
+            <li><a (click)="onAddWidgetClick('meteo')">Météo</a></li>
+            <li><a (click)="onAddWidgetClick('horaire')">Horaire</a></li>
+            <li><a (click)="onAddWidgetClick('list')">Tâche à faire</a></li>
           </ul>
         </li>
       </ul>
