@@ -20,6 +20,7 @@
       "prefix": "gridster",
       "styles": [
         "styles.css",
+        "./assets/css/weather-icons.min.css",
         "theme.scss"
       ],
       "scripts": [],
