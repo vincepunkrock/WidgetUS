@@ -19,7 +19,9 @@ import { OpusNavbarComponent } from './opus-navbar/opus-navbar.component';
 import { DashboardTabComponent } from './dashboard-tab/dashboard-tab.component';
 import { DashboardTabsComponent } from './dashboard-tabs/dashboard-tabs.component';
 import { WidgetMeteoComponent } from './widget-meteo/widget-meteo.component';
+import { WidgetCalendarComponent } from './widget-calendar/widget-calendar.component';
 import { HttpModule } from '@angular/http';
+import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { HttpModule } from '@angular/http';
     OpusNavbarComponent,
     DashboardTabComponent,
     DashboardTabsComponent,
-    WidgetMeteoComponent
+    WidgetMeteoComponent,
+    WidgetCalendarComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
