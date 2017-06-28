@@ -107,6 +107,7 @@ export class AppComponent implements OnInit {
     }
   }
 
+
   onNewDashboard(newDashboardName: string) {
     this.dashboards.push({name: newDashboardName, active: false, widgets: []});
   }

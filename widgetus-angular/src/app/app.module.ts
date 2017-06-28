@@ -20,6 +20,8 @@ import { DashboardTabComponent } from './dashboard-tab/dashboard-tab.component';
 import { DashboardTabsComponent } from './dashboard-tabs/dashboard-tabs.component';
 import { WidgetMeteoComponent } from './widget-meteo/widget-meteo.component';
 import { HttpModule } from '@angular/http';
+import { ToDoListComponent } from './to-do-list/to-do-list.component';
+import { ToDoItemComponent } from './to-do-item/to-do-item.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { HttpModule } from '@angular/http';
     OpusNavbarComponent,
     DashboardTabComponent,
     DashboardTabsComponent,
-    WidgetMeteoComponent
+    WidgetMeteoComponent,
+    ToDoListComponent,
+    ToDoItemComponent
   ],
   imports: [
     BrowserModule,

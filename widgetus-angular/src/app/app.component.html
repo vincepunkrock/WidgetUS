@@ -4,11 +4,11 @@
 
 <div class="page-header">
   <a class="dropdown">
-    <button class="drop-btn"><b>+ Add Widget</b></button>
+    <button class="drop-btn"><b>+ Ajouter Widget</b></button>
     <div class="dropdown-content">
       <a (click)="addItem('Météo','meteo')">Météo</a>
-      <a (click)="addItem('Horaire','horaire')">Horarius</a>
-      <a (click)="addItem('ToDoList','list')">ToDoList</a>
+      <a (click)="addItem('Horaire','horaire')">Horaire</a>
+      <a (click)="addItem('Liste de taches','list')">Liste a faire</a>
     </div>
   </a>
 </div>
@@ -23,6 +23,7 @@
             </div>
       </div>
       <gridster-widget-meteo *ngIf="item.wtype == 'meteo'"></gridster-widget-meteo>
+      <gridster-to-do-list *ngIf="item.wtype == 'list'"></gridster-to-do-list>
     </div>
   </gridster-item>
 </gridster>
