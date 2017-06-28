@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   activeDashboardID = 0;
   MaxWidget: number;
   activeDashboardName: string;
+  calendarOptions: Object;
 
   static eventStop(item, scope, event) {
     console.info('eventStop', item, scope);
@@ -34,6 +35,71 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.MaxWidget = 10;
+
+    this.calendarOptions = {
+      height: 'parent',
+      fixedWeekCount : false,
+      defaultDate: '2016-09-12',
+      defaultView: 'agendaDay',
+      editable: true,
+      eventLimit: true, // allow "more" link when too many events
+      events: [
+        {
+          title: 'All Day Event',
+          start: '2016-09-01'
+        },
+        {
+          title: 'Long Event',
+          start: '2016-09-07',
+          end: '2016-09-10'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: '2016-09-09T16:00:00'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: '2016-09-16T16:00:00'
+        },
+        {
+          title: 'Conference',
+          start: '2016-09-11',
+          end: '2016-09-13'
+        },
+        {
+          title: 'Meeting',
+          start: '2016-09-12T10:30:00',
+          end: '2016-09-12T12:30:00'
+        },
+        {
+          title: 'Lunch',
+          start: '2016-09-12T12:00:00'
+        },
+        {
+          title: 'Meeting',
+          start: '2016-09-12T14:30:00'
+        },
+        {
+          title: 'Happy Hour',
+          start: '2016-09-12T17:30:00'
+        },
+        {
+          title: 'Dinner',
+          start: '2016-09-12T20:00:00'
+        },
+        {
+          title: 'Birthday Party',
+          start: '2016-09-13T07:00:00'
+        },
+        {
+          title: 'Click for Google',
+          url: 'http://google.com/',
+          start: '2016-09-28'
+        }
+      ]
+    };
 
     this.options = {
       gridType: 'fit',
@@ -68,7 +134,11 @@ export class AppComponent implements OnInit {
     };
 
     this.dashboards = [
-      {name: 'dash 1', active: false, widgets: [{cols: 4, rows: 4, y: 0, x: 0}, {cols: 2, rows: 2, y: 0, x: 4},{cols: 2, rows: 2, y: 2, x: 4}]},
+      {
+        name: 'dash 1',
+        active: false,
+        widgets: [{cols: 4, rows: 4, y: 0, x: 0}, {cols: 2, rows: 2, y: 0, x: 4}, {cols: 2, rows: 2, y: 2, x: 4}]
+      },
       {name: 'dash 2', active: false, widgets: []},
       {name: 'dash 3', active: false, widgets: []}
     ];
@@ -79,9 +149,9 @@ export class AppComponent implements OnInit {
   changedOptions() {
     this.options.optionsChanged();
   }
-  openSettings()
-  {
-   this.addItem();
+
+  openSettings() {
+    this.addItem();
   }
 
   removeItem($event, item) {
@@ -92,8 +162,7 @@ export class AppComponent implements OnInit {
 
   addItem() {
     // ici on va pouvoir ajouter dans la BD
-    if (this.widgets.length < this.MaxWidget)
-    {
+    if (this.widgets.length < this.MaxWidget) {
       this.widgets.push({cols: 2, rows: 2});
     }
   }
@@ -107,4 +176,6 @@ export class AppComponent implements OnInit {
     this.activeDashboardID = _.indexOf(_.pluck(this.dashboards, 'name'), this.activeDashboardName);
     this.widgets = this.dashboards[this.activeDashboardID].widgets;
   }
+
+
 }

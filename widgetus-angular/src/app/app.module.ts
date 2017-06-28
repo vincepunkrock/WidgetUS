@@ -12,6 +12,7 @@ import {
   MdTooltipModule,
   MdCheckboxModule
 } from '@angular/material';
+import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar';
 
 import {AppComponent} from './app.component';
 import {GridsterModule} from '../lib/gridster.module';
@@ -24,7 +25,8 @@ import { DashboardTabsComponent } from './dashboard-tabs/dashboard-tabs.componen
     AppComponent,
     OpusNavbarComponent,
     DashboardTabComponent,
-    DashboardTabsComponent
+    DashboardTabsComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
