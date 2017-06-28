@@ -15,12 +15,16 @@ export class WidgetCalendarComponent implements OnInit {
 
   ngOnInit() {
     this.calendarOptions = {
-      height: 'auto', // make a function to adjust ??
+      height: '500', // make a function to adjust ??
       fixedWeekCount: false,
       defaultDate: '2016-09-12',
       defaultView: 'agendaDay',
       editable: false,
       eventLimit: true, // allow "more" link when too many events
+      minTime: '08:00:00',
+      maxTime: '23:00:00',
+      titleFormat: 'MMM D, YYYY',
+      allDaySlot: false,
       events: [
         {
           title: 'All Day Event',
