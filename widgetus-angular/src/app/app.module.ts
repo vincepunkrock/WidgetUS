@@ -19,9 +19,12 @@ import { OpusNavbarComponent } from './opus-navbar/opus-navbar.component';
 import { DashboardTabComponent } from './dashboard-tab/dashboard-tab.component';
 import { DashboardTabsComponent } from './dashboard-tabs/dashboard-tabs.component';
 import { WidgetMeteoComponent } from './widget-meteo/widget-meteo.component';
+import { WidgetCalendarComponent } from './widget-calendar/widget-calendar.component';
 import { HttpModule } from '@angular/http';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
 import { ToDoItemComponent } from './to-do-item/to-do-item.component';
+import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { ToDoItemComponent } from './to-do-item/to-do-item.component';
     WidgetMeteoComponent,
     ToDoListComponent,
     ToDoItemComponent
+    WidgetCalendarComponent,
+    CalendarComponent
+
   ],
   imports: [
     BrowserModule,

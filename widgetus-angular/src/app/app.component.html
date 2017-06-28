@@ -24,6 +24,8 @@
       </div>
       <gridster-widget-meteo *ngIf="item.wtype == 'meteo'"></gridster-widget-meteo>
       <gridster-to-do-list *ngIf="item.wtype == 'list'"></gridster-to-do-list>
+      <gridster-widget-calendar *ngIf="item.wtype == 'horaire'"></gridster-widget-calendar>
+
     </div>
   </gridster-item>
 </gridster>

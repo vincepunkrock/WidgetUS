@@ -21,7 +21,8 @@ export class AppComponent implements OnInit {
 
   test;
 
-  constructor(private _httpService: HttpService) {}
+  constructor(private _httpService: HttpService) {
+  }
 
   static eventStop(item, scope, event) {
     console.info('eventStop', item, scope);
@@ -70,7 +71,7 @@ export class AppComponent implements OnInit {
         enabled: true,
         stop: AppComponent.eventStop
       },
-      swap: false,
+      swap: true,
       displayGrid: 'none'
     };
 
@@ -87,8 +88,9 @@ export class AppComponent implements OnInit {
   changedOptions() {
     this.options.optionsChanged();
   }
+
   openSettings(wname: string, widgettype: string) {
-   this.addItem(wname, widgettype);
+    this.addItem(wname, widgettype);
   }
 
   removeItem($event, item) {
@@ -100,8 +102,7 @@ export class AppComponent implements OnInit {
   addItem(wname: string, widgettype: string) {
     // ici on va pouvoir ajouter dans la BD
     if (this.widgets.length < this.MaxWidget) {
-      if(widgettype == 'meteo' || widgettype == 'horaire' || widgettype == 'list')
-      {
+      if (widgettype === 'meteo' || widgettype === 'horaire' || widgettype === 'list') {
         this.widgets.push({cols: 2, rows: 2, name: wname, wtype: widgettype});
       }
     }
@@ -133,15 +134,15 @@ export class AppComponent implements OnInit {
         data => {
           // this.getData = JSON.stringify(data);
 
-          let groups = _.groupBy(data, function(value:any){
+          let groups = _.groupBy(data, function (value: any) {
             return value.cip + '#' + value.dashboard_name;
           });
 
-          this.dashboards = _.map(groups, function(group){
+          this.dashboards = _.map(groups, function (group) {
             return {
               cip: group[0].cip,
               name: group[0].dashboard_name,
-              widgets: _.map(group, function(config){
+              widgets: _.map(group, function (config) {
                 return {
                   id: config.widget_id,
                   wtype: config.widget_type,
