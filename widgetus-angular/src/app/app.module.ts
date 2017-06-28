@@ -12,13 +12,14 @@ import {
   MdTooltipModule,
   MdCheckboxModule
 } from '@angular/material';
-import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar';
 
 import {AppComponent} from './app.component';
 import {GridsterModule} from '../lib/gridster.module';
 import { OpusNavbarComponent } from './opus-navbar/opus-navbar.component';
 import { DashboardTabComponent } from './dashboard-tab/dashboard-tab.component';
 import { DashboardTabsComponent } from './dashboard-tabs/dashboard-tabs.component';
+import { WidgetMeteoComponent } from './widget-meteo/widget-meteo.component';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -26,14 +27,16 @@ import { DashboardTabsComponent } from './dashboard-tabs/dashboard-tabs.componen
     OpusNavbarComponent,
     DashboardTabComponent,
     DashboardTabsComponent,
-    CalendarComponent
+    WidgetMeteoComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpModule,
     MdIconModule, MdButtonModule, MdSelectModule, MdSliderModule, MdInputModule, MdTooltipModule, MdCheckboxModule,
-    GridsterModule
+    GridsterModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
