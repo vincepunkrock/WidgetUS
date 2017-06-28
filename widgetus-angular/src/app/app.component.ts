@@ -106,8 +106,16 @@ export class AppComponent implements OnInit {
   }
 
   onNewDashboard(newDashboardName: string) {
-    this.dashboards.push({name: newDashboardName, active: false, widgets: []});
-  }
+    this._httpService.postDashboard(newDashboardName)
+      .subscribe(
+        data => {
+          // this.getData = JSON.stringify(data);
+          this.dashboards.push({name: newDashboardName, active: false, widgets: []});
+        },
+        error => alert(error),
+        () => console.log('Finished')
+      );
+}
 
   onChangeActiveTab(newActiveDashboard: string) {
     this.activeDashboardName = newActiveDashboard;
@@ -156,6 +164,5 @@ export class AppComponent implements OnInit {
         error => alert(error),
         () => console.log('Finished')
       );
-
   }
 }
