@@ -34,7 +34,7 @@ import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar'
     DashboardTabsComponent,
     WidgetMeteoComponent,
     ToDoListComponent,
-    ToDoItemComponent
+    ToDoItemComponent,
     WidgetCalendarComponent,
     CalendarComponent
 
