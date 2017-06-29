@@ -4,17 +4,40 @@
 
 <gridster [options]="options">
   <gridster-item [item]="item" *ngFor="let item of widgets">
-    <div class="box" ng-controller="CustomWidgetCtrl">
-      <div class="box-header">
-        <h3>{{ item.name }}</h3>
-            <div class="box-header-btns pull-right">
-              <a title="Remove widget" (click)="removeItem($event, item)"><i class="glyphicon glyphicon-trash"></i></a>
-            </div>
+    <div class="panel panel-info" *ngIf="item.wtype == 'meteo'">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ item.name }}</h3>
+        <div class="box-header-btns pull-right">
+          <a title="Remove widget" (click)="removeItem($event, item)"><i class="glyphicon glyphicon-wrench"></i></a>
+        </div>
       </div>
-      <gridster-widget-meteo *ngIf="item.wtype == 'meteo'"></gridster-widget-meteo>
-      <gridster-to-do-list *ngIf="item.wtype == 'list'"></gridster-to-do-list>
-      <gridster-widget-calendar *ngIf="item.wtype == 'horaire'"></gridster-widget-calendar>
+      <div class="panel-body">
+        <gridster-widget-meteo></gridster-widget-meteo>
+      </div>
+    </div>
 
+    <div class="panel panel-success" *ngIf="item.wtype == 'list'">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ item.name }}</h3>
+        <div class="box-header-btns pull-right">
+          <a title="Remove widget" (click)="removeItem($event, item)"><i class="glyphicon glyphicon-wrench"></i></a>
+        </div>
+      </div>
+      <div class="panel-body">
+        <gridster-to-do-list></gridster-to-do-list>
+      </div>
+    </div>
+
+    <div class="panel panel-warning" *ngIf="item.wtype == 'horaire'">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ item.name }}</h3>
+        <div class="box-header-btns pull-right">
+          <a title="Remove widget" (click)="removeItem($event, item)"><i class="glyphicon glyphicon-wrench"></i></a>
+        </div>
+      </div>
+      <div class="panel-body">
+        <gridster-widget-calendar></gridster-widget-calendar>
+      </div>
     </div>
   </gridster-item>
 </gridster>

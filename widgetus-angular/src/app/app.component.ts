@@ -20,6 +20,8 @@ export class AppComponent implements OnInit {
   activeDashboardName: string;
   getData;
   widName: string;
+  ncols: number;
+  nrows: number;
 
   typeNameToTypeId = {
     list: 1,
@@ -96,7 +98,7 @@ export class AppComponent implements OnInit {
   }
 
   openSettings(wname: string, widgettype: string) {
-    this.addItem(wname, widgettype);
+    this.addItem(wname, widgettype,2,2);
   }
 
   removeItem($event, item) {
@@ -105,7 +107,7 @@ export class AppComponent implements OnInit {
     this.widgets.splice(this.widgets.indexOf(item), 1);
   }
 
-  addItem(wname: string, widgettype: string) {
+  addItem(wname: string, widgettype: string,col :number, row: number ) {
     // ici on va pouvoir ajouter dans la BD
     // let config = {cols: 2, rows: 2, type_widget_id: widgettype, dashboard_id: this.currentDashboard_id};
     let config = {width: 1, height: 1, type_widget_id: this.typeNameToTypeId[widgettype], dashboard_id: this.currentDashboard_id};
@@ -114,9 +116,9 @@ export class AppComponent implements OnInit {
 
         this._httpService.postWidget(config)
           .subscribe(
-            data => this.widgets.push({cols: 1, rows: 1, name: wname, wtype: widgettype}),
+            data => this.widgets.push({cols: col, rows: row, name: wname, wtype: widgettype}),
             // error => alert(error),
-            error => this.widgets.push({cols: 1, rows: 1, name: wname, wtype: widgettype}),
+            error => this.widgets.push({cols: col, rows: row, name: wname, wtype: widgettype}),
             () => console.log('Finished')
           );
       }
@@ -124,21 +126,24 @@ export class AppComponent implements OnInit {
   }
 
   onAddWidget(widgetType: string) {
-
     if (this.widgets.length < this.MaxWidget) 
     {
       switch(widgetType)
       {
-        case 'meteo': this.widName = 'Météo'; break;
-        case 'horaire': this.widName = 'Horaire'; break;
-        case 'list': this.widName = 'Tâche à faire'; break;
+        case 'meteo': this.widName = 'Météo';this.ncols = 2;this.nrows=1; break;
+        case 'horaire': this.widName = 'Horaire';this.ncols = 2;this.nrows=2; break;
+        case 'list': this.widName = 'Tâche à faire';this.ncols = 2;this.nrows=1; break;
 
         default:
           widgetType = 'meteo';
           this.widName = 'Météo';
+          this.ncols = 2;
+          this.nrows=1;
         break;
       }
-      this.widgets.push({cols: 2, rows: 2, name: this.widName, wtype: widgetType});
+
+      this.addItem(this.widName,widgetType,this.ncols,this.nrows);
+      //this.widgets.push({cols: 2, rows: 2, name: this.widName, wtype: widgetType});
     }
   }
 
