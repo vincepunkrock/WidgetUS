@@ -1,13 +1,55 @@
+<!--<div class="weather-container">-->
+
+  <!--Météo pour: -->
+  <!--<input type="text" [(ngModel)]="cityQuery">-->
+  <!--<button type="button" (click)="loadWeather()" ><span class="glyphicon glyphicon-search"></span></button>-->
+
+  <!--<i [attr.class]="'weather-icon ' + iconName"></i>-->
+
+  <!--Résultat pour: {{cityResult}}-->
+  <!--Température actuelle(°C) {{temp}}-->
+  <!--{{desc}}-->
+
+<!--</div>-->
+
 <div class="weather-container">
+  <div class="Weather-Location">{{cityResult}}</div>
 
-  Météo pour: 
-  <input type="text" [(ngModel)]="cityQuery">
-  <button type="button" (click)="loadWeather()" ><span class="glyphicon glyphicon-search"></span></button>
+  <div class="Weather-Date"> {{date|date:'EEEE, MMMM d H:mm'}} </div>
 
-  <i [attr.class]="'weather-icon ' + iconName"></i>
+  <div class="Weather-Name"> {{desc}} </div>
 
-  Résultat pour: {{cityResult}}
-  Température actuelle(°C) {{temp}}
-  {{desc}}
+  <div id="Weather-Actual" style="font:16px arial,helvetica,sans-serif;padding:20px 0 0 0">
+    <div>
+      <!--<img id="Weather-Icon" style="float:left;height:64px;width:64px" src={{iconID}}>-->
+      <i id="Weather-Icon" style="float:left; margin-top:3px" [attr.class]="'weather-icon ' + iconName"></i>
+      <div style="padding-left:10px;float:left">
+        <div>
+          <div class="Weather-Temperature-Number" style="float:left;margin-top:-20px;font-size:72px">{{temp|number:'1.0-0'}}</div>
+          <div class="Weather-Temperature-Units" style="float:left;font-size:16px;margin-top:-8px">
+            <span class="Weather-Temperature-Metric" style="display:inline" aria-label="°Celsius">°C</span>
+            <span class="Weather-Temperature-Imperial" style="display:inline" aria-label="°Fahrenheit">°F</span>
+          </div>
+        </div>
+      </div>
+      <div class="Weather-Informations" style="float:right;padding-left:5px;line-height:20px;margin-top:-10px;margin-right:-30px;min-width:43%">
+        <div>
+          Nuagé&nbsp;:
+          <span id="Weather-Cloudy">{{cloudy}}%</span>
+        </div>
+        <div>
+          Humidité&nbsp;:
+          <span id="Weather-Humidity">{{humidity}}%</span>
+        </div>
+        <div>
+          Vent&nbsp;:
+          <span id="Weather-Wind">{{wind}} m/s</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!--<div class="Weather-Forecast" style="margin-bottom:-1px;padding:0;padding-bottom:1px;cursor:pointer">-->
+    <!--Forecast...-->
+  <!--</div>-->
 </div>
