@@ -25,10 +25,9 @@ export class HttpService {
   }
 
   postWidget(widgetConfig) {
-    let json = {'cip': 'balp2101', 'dashboard_name': widgetConfig};
-    let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=representation'});
+    let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=minimal'});
 
-    return this.http.post('http://10.43.158.122:3306/widget_list', json, {headers: headers})
+    return this.http.post('http://10.43.158.122:3306/widget_list', widgetConfig, {headers: headers})
       .map(res => res.json());
   }
 

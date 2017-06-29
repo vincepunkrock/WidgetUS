@@ -15,11 +15,16 @@ export class AppComponent implements OnInit {
   dashboard: Array<Object>;
   widgets: Array<Object>;
   activeDashboardID = 0;
+  currentDashboard_id;
   MaxWidget: number;
   activeDashboardName: string;
   getData;
 
-  test;
+  typeNameToTypeId = {
+    list: 1,
+    meteo: 2,
+    horaire: 3
+  };
 
   constructor(private _httpService: HttpService) {
   }
@@ -44,7 +49,7 @@ export class AppComponent implements OnInit {
     this.MaxWidget = 10;
 
     this.options = {
-      gridType: 'fit',
+      gridType: 'fixed',
       compactUp: false,
       compactLeft: false,
       itemChangeCallback: AppComponent.itemChange,
@@ -59,8 +64,8 @@ export class AppComponent implements OnInit {
       minItemCols: 1,
       maxItemRows: 10,
       minItemRows: 1,
-      defaultItemCols: 5,
-      defaultItemRows: 5,
+      defaultItemCols: 1,
+      defaultItemRows: 1,
       fixedColWidth: 250,
       fixedRowHeight: 250,
       draggable: {
@@ -101,9 +106,18 @@ export class AppComponent implements OnInit {
 
   addItem(wname: string, widgettype: string) {
     // ici on va pouvoir ajouter dans la BD
+    // let config = {cols: 2, rows: 2, type_widget_id: widgettype, dashboard_id: this.currentDashboard_id};
+    let config = {width: 1, height: 1, type_widget_id: this.typeNameToTypeId[widgettype], dashboard_id: this.currentDashboard_id};
     if (this.widgets.length < this.MaxWidget) {
       if (widgettype === 'meteo' || widgettype === 'horaire' || widgettype === 'list') {
-        this.widgets.push({cols: 2, rows: 2, name: wname, wtype: widgettype});
+
+        this._httpService.postWidget(config)
+          .subscribe(
+            data => this.widgets.push({cols: 1, rows: 1, name: wname, wtype: widgettype}),
+            // error => alert(error),
+            error => this.widgets.push({cols: 1, rows: 1, name: wname, wtype: widgettype}),
+            () => console.log('Finished')
+          );
       }
     }
   }
@@ -112,8 +126,7 @@ export class AppComponent implements OnInit {
     this._httpService.postDashboard(newDashboardName)
       .subscribe(
         data => {
-          // this.getData = JSON.stringify(data);
-          this.dashboards.push({name: newDashboardName, active: false, widgets: []});
+          this.dashboards.push({name: newDashboardName, widgets: []});
         },
         error => alert(error),
         () => console.log('Finished')
@@ -124,6 +137,7 @@ export class AppComponent implements OnInit {
     this.activeDashboardName = newActiveDashboard;
     this.activeDashboardID = _.indexOf(_.pluck(this.dashboards, 'name'), this.activeDashboardName);
     this.widgets = this.dashboards[this.activeDashboardID].widgets;
+    this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
   }
 
   onTestGet() {
@@ -149,20 +163,22 @@ export class AppComponent implements OnInit {
             return {
               cip: group[0].cip,
               name: group[0].dashboard_name,
+              id: group[0].dashboard_id,
               widgets: _.map(group, function (config) {
                 return {
                   id: config.widget_id,
+                  wtype_id: config.type_id,
                   wtype: config.widget_type,
-                  cols: config.y_position,
-                  rows: config.x_position,
-                  x: config.width,
-                  y: config.height
+                  y: config.y_position,
+                  x: config.x_position,
+                  cols: config.width,
+                  rows: config.height
                 };
               })
             };
           });
-          this.test = JSON.stringify(this.dashboards);
           this.widgets = this.dashboards[this.activeDashboardID].widgets;
+          this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
         },
         error => alert(error),
         () => console.log('Finished')
