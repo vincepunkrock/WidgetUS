@@ -1,6 +1,19 @@
 .weather-icon {
-    font-size: 60px;
+    font-size: 48px;
 }
 .weather-container {
     margin:20px;
+}
+.Weather-Location {
+    font-size: x-large;
+    font-weight: lighter;
+    color: #878787;
+}
+.Weather-Date, .Weather-Name, .Weather-Informations {
+    font-size: medium;
+    font-weight: lighter;
+    color: #878787;
+}
+.Weather-Name:first-letter {
+  text-transform: capitalize;
 }
