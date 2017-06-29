@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   MaxWidget: number;
   activeDashboardName: string;
   getData;
+  widName: string;
 
   typeNameToTypeId = {
     list: 1,
@@ -121,6 +122,26 @@ export class AppComponent implements OnInit {
       }
     }
   }
+
+  onAddWidget(widgetType: string) {
+
+    if (this.widgets.length < this.MaxWidget) 
+    {
+      switch(widgetType)
+      {
+        case 'meteo': this.widName = 'Météo'; break;
+        case 'horaire': this.widName = 'Horaire'; break;
+        case 'list': this.widName = 'Tâche à faire'; break;
+
+        default:
+          widgetType = 'meteo';
+          this.widName = 'Météo';
+        break;
+      }
+      this.widgets.push({cols: 2, rows: 2, name: this.widName, wtype: widgetType});
+    }
+  }
+
 
   onNewDashboard(newDashboardName: string) {
     this._httpService.postDashboard(newDashboardName)

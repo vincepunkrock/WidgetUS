@@ -12,7 +12,10 @@ export class DashboardTabsComponent implements OnInit {
   @Input() dashboards;
   @Output() onNewDashboard = new EventEmitter<string>();
   @Output() onChangeActiveTab = new EventEmitter<string>();
+  @Output() onAddWidget = new EventEmitter<string>();
+
   newDashboardName = '';
+
   activeTab;
 
   constructor() {
@@ -27,6 +30,10 @@ export class DashboardTabsComponent implements OnInit {
 
   onAddDashboard() {
     this.onNewDashboard.emit(this.newDashboardName);
+  }
+
+  onAddWidgetClick(widgetType: string) {
+    this.onAddWidget.emit(widgetType);
   }
 
   onActivedTab(name: string) {
