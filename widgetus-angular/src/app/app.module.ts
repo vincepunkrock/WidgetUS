@@ -12,6 +12,7 @@ import {
   MdTooltipModule,
   MdCheckboxModule
 } from '@angular/material';
+import {CalendarModule} from 'ap-angular2-fullcalendar';
 
 import {AppComponent} from './app.component';
 import {GridsterModule} from '../lib/gridster.module';
@@ -23,7 +24,6 @@ import { WidgetCalendarComponent } from './widget-calendar/widget-calendar.compo
 import { HttpModule } from '@angular/http';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
 import { ToDoItemComponent } from './to-do-item/to-do-item.component';
-import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar';
 import { WidgetHeaderComponent } from './widget-header/widget-header.component';
 
 
@@ -37,7 +37,6 @@ import { WidgetHeaderComponent } from './widget-header/widget-header.component';
     ToDoListComponent,
     ToDoItemComponent,
     WidgetCalendarComponent,
-    CalendarComponent,
     WidgetHeaderComponent
 
   ],
@@ -48,7 +47,8 @@ import { WidgetHeaderComponent } from './widget-header/widget-header.component';
     HttpModule,
     MdIconModule, MdButtonModule, MdSelectModule, MdSliderModule, MdInputModule, MdTooltipModule, MdCheckboxModule,
     GridsterModule,
-    HttpModule
+    HttpModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
