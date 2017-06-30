@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'gridster-widget-calendar',
@@ -8,12 +8,17 @@ import {Component, OnInit} from '@angular/core';
 
 
 export class WidgetCalendarComponent implements OnInit {
+  @Output() removed = new EventEmitter();
+  @Output() name: string;
+
   calendarOptions: Object;
 
   constructor() {
   }
 
   ngOnInit() {
+    this.name = 'Horaire';
+
     this.calendarOptions = {
       height: '500', // make a function to adjust ??
       fixedWeekCount: false,
@@ -82,6 +87,10 @@ export class WidgetCalendarComponent implements OnInit {
         }
       ]
     };
+  }
+
+  removeItem(e) {
+    this.removed.emit(e);
   }
 
 

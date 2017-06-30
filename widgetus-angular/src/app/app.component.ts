@@ -101,9 +101,9 @@ export class AppComponent implements OnInit {
     this.addItem(wname, widgettype,2,2);
   }
 
-  removeItem($event, item) {
-    $event.preventDefault();
-    $event.stopPropagation();
+  removeItem(event, item) {
+    event.preventDefault();
+    event.stopPropagation();
     this.widgets.splice(this.widgets.indexOf(item), 1);
   }
 

@@ -1,1 +1,8 @@
-<angular2-fullcalendar [options]="calendarOptions"></angular2-fullcalendar>
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    <gridster-widget-header (itemRemoved)="removeItem($event)" [name]='name'></gridster-widget-header>
+  </div>
+  <div class="panel-body">
+    <angular2-fullcalendar [options]="calendarOptions"></angular2-fullcalendar>
+  </div>
+</div>

@@ -24,6 +24,7 @@ import { HttpModule } from '@angular/http';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
 import { ToDoItemComponent } from './to-do-item/to-do-item.component';
 import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar';
+import { WidgetHeaderComponent } from './widget-header/widget-header.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar'
     ToDoListComponent,
     ToDoItemComponent,
     WidgetCalendarComponent,
-    CalendarComponent
+    CalendarComponent,
+    WidgetHeaderComponent
 
   ],
   imports: [

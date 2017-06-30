@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MeteoService } from '../meteo.service';
 import { WeatherIcons } from './WeatherIcons';
 
@@ -9,7 +9,9 @@ import { WeatherIcons } from './WeatherIcons';
   providers: [ MeteoService ]
 })
 export class WidgetMeteoComponent implements OnInit {
-
+  @Output() removed = new EventEmitter();
+  @Output() name: string;
+  
   iconName: string = "";
   temp: number;
   cityQuery: string = "Sherbrooke, qc";
@@ -19,6 +21,7 @@ export class WidgetMeteoComponent implements OnInit {
   constructor(private meteoService: MeteoService) { }
 
   ngOnInit() {
+    this.name = 'Météo';
     this.loadWeather();
   }
 
@@ -48,6 +51,10 @@ export class WidgetMeteoComponent implements OnInit {
     icon = prefix + icon;
 
     return icon;
+  }
+
+  removeItem(e) {
+    this.removed.emit(e);
   }
 
 }

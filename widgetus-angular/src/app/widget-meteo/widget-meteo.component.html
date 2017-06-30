@@ -1,13 +1,18 @@
-<div class="weather-container">
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    <gridster-widget-header (itemRemoved)="removeItem($event)" [name]='name'></gridster-widget-header>
+  </div>
+  <div class="weather-container">
 
-  Météo pour: 
-  <input type="text" [(ngModel)]="cityQuery">
-  <button type="button" (click)="loadWeather()" ><span class="glyphicon glyphicon-search"></span></button>
+    Météo pour: 
+    <input type="text" [(ngModel)]="cityQuery">
+    <button type="button" (click)="loadWeather()" ><span class="glyphicon glyphicon-search"></span></button>
 
-  <i [attr.class]="'weather-icon ' + iconName"></i>
+    <i [attr.class]="'weather-icon ' + iconName"></i>
 
-  Résultat pour: {{cityResult}}
-  Température actuelle(°C) {{temp}}
-  {{desc}}
+    Résultat pour: {{cityResult}}
+    Température actuelle(°C) {{temp}}
+    {{desc}}
 
+  </div>
 </div>
