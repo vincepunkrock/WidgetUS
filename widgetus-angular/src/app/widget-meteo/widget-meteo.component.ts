@@ -9,14 +9,21 @@ import { WeatherIcons } from './WeatherIcons';
   providers: [ MeteoService ]
 })
 export class WidgetMeteoComponent implements OnInit {
+
   @Output() removed = new EventEmitter();
   @Output() name: string;
-  
-  iconName: string = "";
-  temp: number;
+
   cityQuery: string = "Sherbrooke, qc";
   cityResult: string = "";
+  iconName: string = "";
+  // iconID: string;
+  temp: number;
+  cloudy: number;
+  humidity: number;
+  wind: number;
+
   desc: string;
+  date = new Date();
 
   constructor(private meteoService: MeteoService) { }
 
@@ -28,10 +35,14 @@ export class WidgetMeteoComponent implements OnInit {
   loadWeather() {
      this.meteoService.getWeather(this.cityQuery, "metric").subscribe(res => {
       if(res){
-          this.iconName = this.buildIconName(res.weather[0].id);
-          this.temp = res.main.temp;
           this.cityResult = res.name;
-          this.desc = res.weather.description;
+          this.iconName = this.buildIconName(res.weather[0].id);
+          // this.iconID = "http://openweathermap.org/img/w/" + res.weather[0].icon + ".png";
+          this.temp = res.main.temp;
+          this.cloudy = res.clouds.all;
+          this.humidity = res.main.humidity;
+          this.wind = res.wind.speed;
+          this.desc = res.weather[0].description;
       }
     }, err => {
 
