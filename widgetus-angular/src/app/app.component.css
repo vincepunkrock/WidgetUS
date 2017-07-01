@@ -7,11 +7,3 @@
   flex-direction: column;
   background-color:whitesmoke;
 }
-
-.box-header-btns
-{
-    top: 15px;
-    right: 10px;
-    cursor: pointer;
-    position: absolute;
-}

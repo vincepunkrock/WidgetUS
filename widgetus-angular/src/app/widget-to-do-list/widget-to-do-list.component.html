@@ -1,0 +1,22 @@
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    <gridster-widget-header (itemRemoved)="removeItem($event)" [name]='name'></gridster-widget-header>
+  </div>
+  <div class="gridster-item-content">
+    <div class="row">
+    <div class="col-lg-6">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Note..." [(ngModel)]="ToDoNote" (keyup.enter)="onAddNote()">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" (click)="onAddNote()"><span class="glyphicon glyphicon-plus"></span></button>
+        </span>
+      </div>
+    </div>
+    </div>
+    <div class="droptarget">
+    <ul class="list-group NoMargin" *ngFor="let ToDoItem of ToDoList">
+            <gridster-widget-to-do-item [ToDoContents]="ToDoItem"  (onCheck)="onCheck($event)"></gridster-widget-to-do-item>
+    </ul>
+    </div>
+  </div>
+</div>

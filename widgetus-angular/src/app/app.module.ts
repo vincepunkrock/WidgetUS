@@ -21,10 +21,10 @@ import { DashboardTabsComponent } from './dashboard-tabs/dashboard-tabs.componen
 import { WidgetMeteoComponent } from './widget-meteo/widget-meteo.component';
 import { WidgetCalendarComponent } from './widget-calendar/widget-calendar.component';
 import { HttpModule } from '@angular/http';
-import { ToDoListComponent } from './to-do-list/to-do-list.component';
-import { ToDoItemComponent } from './to-do-item/to-do-item.component';
 import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar';
 import { WidgetHeaderComponent } from './widget-header/widget-header.component';
+import { WidgetToDoListComponent } from './widget-to-do-list/widget-to-do-list.component';
+import { WidgetToDoItemComponent } from './widget-to-do-item/widget-to-do-item.component';
 
 
 @NgModule({
@@ -34,11 +34,11 @@ import { WidgetHeaderComponent } from './widget-header/widget-header.component';
     DashboardTabComponent,
     DashboardTabsComponent,
     WidgetMeteoComponent,
-    ToDoListComponent,
-    ToDoItemComponent,
     WidgetCalendarComponent,
     CalendarComponent,
-    WidgetHeaderComponent
+    WidgetHeaderComponent,
+    WidgetToDoListComponent,
+    WidgetToDoItemComponent
 
   ],
   imports: [
