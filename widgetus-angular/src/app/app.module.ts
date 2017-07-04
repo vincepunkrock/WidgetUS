@@ -2,6 +2,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+
 import 'hammerjs';
 import {
   MdIconModule,
@@ -12,7 +15,6 @@ import {
   MdTooltipModule,
   MdCheckboxModule
 } from '@angular/material';
-import {CalendarModule} from 'ap-angular2-fullcalendar';
 
 import {AppComponent} from './app.component';
 import {GridsterModule} from '../lib/gridster.module';
@@ -21,10 +23,12 @@ import { DashboardTabComponent } from './dashboard-tab/dashboard-tab.component';
 import { DashboardTabsComponent } from './dashboard-tabs/dashboard-tabs.component';
 import { WidgetMeteoComponent } from './widget-meteo/widget-meteo.component';
 import { WidgetCalendarComponent } from './widget-calendar/widget-calendar.component';
+import { WidgetCalendarPopupComponent } from './widget-calendar-popup/widget-calendar-popup.component';
 import { HttpModule } from '@angular/http';
-import { ToDoListComponent } from './to-do-list/to-do-list.component';
-import { ToDoItemComponent } from './to-do-item/to-do-item.component';
+import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar';
 import { WidgetHeaderComponent } from './widget-header/widget-header.component';
+import { WidgetToDoListComponent } from './widget-to-do-list/widget-to-do-list.component';
+import { WidgetToDoItemComponent } from './widget-to-do-item/widget-to-do-item.component';
 
 
 @NgModule({
@@ -34,10 +38,12 @@ import { WidgetHeaderComponent } from './widget-header/widget-header.component';
     DashboardTabComponent,
     DashboardTabsComponent,
     WidgetMeteoComponent,
-    ToDoListComponent,
-    ToDoItemComponent,
     WidgetCalendarComponent,
-    WidgetHeaderComponent
+    CalendarComponent,
+    WidgetHeaderComponent,
+    WidgetToDoListComponent,
+    WidgetCalendarPopupComponent,
+    WidgetToDoItemComponent
 
   ],
   imports: [
@@ -48,10 +54,12 @@ import { WidgetHeaderComponent } from './widget-header/widget-header.component';
     MdIconModule, MdButtonModule, MdSelectModule, MdSliderModule, MdInputModule, MdTooltipModule, MdCheckboxModule,
     GridsterModule,
     HttpModule,
-    CalendarModule
+    ModalModule.forRoot(),
+    BootstrapModalModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ WidgetCalendarPopupComponent ]
 })
 export class AppModule {
 
