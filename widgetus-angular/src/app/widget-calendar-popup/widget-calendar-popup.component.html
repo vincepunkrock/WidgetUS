@@ -7,11 +7,17 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="jumbotron">
-        <p class="lead">I received an injection of the number <strong>{{context.name}}</strong> and the number <strong>{{context.num2}}</strong><strong> name : {{context.name}}</strong></p>
         <span>Nom</span>
-        <input class="form-control" type="text" ng-model="context.name">
-        <span>{{context.name}}</span>
+        <input class="form-control" type="text" #answerName (keyup)="enterName(answerName.value)" placeholder="{{context.name}}" autofocus>
+        <span>Ical</span>
+        <input class="form-control" type="text" #answerIcal (keyup)="enterIcal(answerIcal.value)" placeholder="https://www.gel.usherbrooke.ca/horarius/ical?h=vWGRHK15%2Bi7VZimGYG9dpmBhiMkq4r47ffaa8MrrkKE%3D">
+        <span>Couleur</span>
+        <input class="form-control" type="text" #answerIcal (keyup)="enterIcal(answerIcal.value)" placeholder="#006633">
       </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="cancel()" class="btn btn-danger">Cancel</button>
+      <button type="button" (click)="save()" class="btn btn-primary">Sauvegarde</button>
     </div>
   </div>
 </div>

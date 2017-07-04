@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter} from '@angular/core';
 
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 export class WidgetCalendarPopupContext extends BSModalContext {
-  public num1: number;
-  public num2: number;
   public name: string;
+  public widget = new EventEmitter<string>();
 }
 
 /**
@@ -19,26 +18,33 @@ export class WidgetCalendarPopupContext extends BSModalContext {
 })
 export class WidgetCalendarPopupComponent implements CloseGuard, ModalComponent<WidgetCalendarPopupContext> {
   context: WidgetCalendarPopupContext;
+  popupObj = {
+    name : '',
+    ical: '',
+    color: ''
+  };
 
   public wrongAnswer: boolean;
 
   constructor(public dialog: DialogRef<WidgetCalendarPopupContext>) {
     this.context = dialog.context;
-    this.wrongAnswer = true;
+    this.popupObj.name = this.context.name;
     dialog.setCloseGuard(this);
   }
 
-  onKeyUp(value) {
-    this.wrongAnswer = value !== 5;
+  enterName(value) {
+    this.popupObj.name = value;
+  }
+
+  enterIcal(value) {
+    this.popupObj.ical = value;
+  }
+
+  cancel() {
+    this.dialog.dismiss();
+  }
+  save() {
     this.dialog.close();
-  }
-
-
-  beforeDismiss(): boolean {
-    return true;
-  }
-
-  beforeClose(): boolean {
-    return this.wrongAnswer;
+    this.context.widget.emit('horaire');
   }
 }

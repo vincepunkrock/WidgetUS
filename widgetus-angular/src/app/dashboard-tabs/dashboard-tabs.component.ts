@@ -35,8 +35,11 @@ export class DashboardTabsComponent implements OnInit {
   }
 
   onAddWidgetClick(widgetType: string) {
-   // this.onAddWidget.emit(widgetType);
-    return this.modal.open(WidgetCalendarPopupComponent,  overlayConfigFactory({ num1: 2, num2: 3, name: 'Horarius' }, BSModalContext));
+    if (widgetType === 'horaire') {
+      return this.modal.open(WidgetCalendarPopupComponent,  overlayConfigFactory({ name: 'Horaire', widget:  this.onAddWidget}, BSModalContext));
+    } else {
+      this.onAddWidget.emit(widgetType);
+    }
   }
 
   onActivedTab(name: string) {
