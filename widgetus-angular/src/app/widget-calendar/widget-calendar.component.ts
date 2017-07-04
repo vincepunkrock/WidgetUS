@@ -1,4 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewContainerRef} from '@angular/core';
+import { Overlay } from 'angular2-modal';
+import { Modal } from 'angular2-modal/plugins/bootstrap';
 
 @Component({
   selector: 'gridster-widget-calendar',
@@ -17,10 +19,10 @@ export class WidgetCalendarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.name = 'Horaire';
 
+    this.name = 'Horaire';
     this.calendarOptions = {
-      height: '500', // make a function to adjust ??
+      height: '1000', // make a function to adjust ??
       fixedWeekCount: false,
       defaultDate: '2016-09-12',
       defaultView: 'agendaDay',

@@ -1,11 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewContainerRef, ViewEncapsulation} from '@angular/core';
+import { Overlay, overlayConfigFactory } from 'angular2-modal';
+import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
+import { WidgetCalendarPopupContext, WidgetCalendarPopupComponent } from '../widget-calendar-popup/widget-calendar-popup.component';
 import {forEach} from "@angular/router/src/utils/collection";
 import {isEmpty} from "rxjs/operator/isEmpty";
 
 @Component({
   selector: 'gridster-dashboard-tabs',
   templateUrl: './dashboard-tabs.component.html',
-  styleUrls: ['./dashboard-tabs.component.css']
+  styleUrls: ['./dashboard-tabs.component.css'],
+  providers: [Modal]
 })
 export class DashboardTabsComponent implements OnInit {
 
@@ -18,9 +22,7 @@ export class DashboardTabsComponent implements OnInit {
 
   activeTab;
 
-  constructor() {
-
-  }
+  constructor(public modal: Modal) {}
 
   ngOnInit() {
     if (this.dashboards != null) {
@@ -33,7 +35,11 @@ export class DashboardTabsComponent implements OnInit {
   }
 
   onAddWidgetClick(widgetType: string) {
-    this.onAddWidget.emit(widgetType);
+    if (widgetType === 'horaire') {
+      return this.modal.open(WidgetCalendarPopupComponent,  overlayConfigFactory({ name: 'Horaire', widget:  this.onAddWidget}, BSModalContext));
+    } else {
+      this.onAddWidget.emit(widgetType);
+    }
   }
 
   onActivedTab(name: string) {
