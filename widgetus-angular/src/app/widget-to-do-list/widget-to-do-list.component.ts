@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -16,8 +16,7 @@ export class WidgetToDoListComponent implements OnInit {
   ToDoNote: string;
 
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() {
     this.ToDoNote = '';
@@ -33,8 +32,8 @@ export class WidgetToDoListComponent implements OnInit {
     this.onChangeCheck.emit(e);
   }
 
-  onAddNote() {
-    if (this.ToDoNote !== '') {
+  onAddNote(){
+    if(this.ToDoNote != ''){
       this.onAddNoteEv.emit(this.ToDoNote);
     }
     this.ToDoNote = '';

@@ -2,3 +2,7 @@
 .dropdown:hover .dropdown-menu {
     display: block;
 }
+
+.AddWidgetBtn {
+    margin-right: 20px;
+}

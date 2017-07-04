@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   options: GridsterConfig;
   dashboards;
   dashboard: Array<Object>;
+  ToDoList: Array<String>;
   widgets: Array<Object>;
   activeDashboardID = 0;
   currentDashboard_id;
@@ -49,6 +50,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.MaxWidget = 10;
 
     this.options = {
@@ -83,6 +85,12 @@ export class AppComponent implements OnInit {
       displayGrid: 'none'
     };
 
+
+this.ToDoList = [
+ 'Faire le lavage',
+ 'Inscription au gym',
+ 'Faire les lectures pour APP4'
+];
     this.loadDashboard();
     // this.dashboards = [
     //   {name: 'dash 1', widgets: [{cols: 4, rows: 4, y: 0, x: 0}, {cols: 2, rows: 2, y: 0, x: 4},{cols: 2, rows: 2, y: 2, x: 4}]},
@@ -159,6 +167,11 @@ export class AppComponent implements OnInit {
       );
 }
 
+
+onChangeCheck() {
+// when task done
+}
+
   onChangeActiveTab(newActiveDashboard: string) {
     this.activeDashboardName = newActiveDashboard;
     this.activeDashboardID = _.indexOf(_.pluck(this.dashboards, 'name'), this.activeDashboardName);
@@ -209,5 +222,9 @@ export class AppComponent implements OnInit {
         error => alert(error),
         () => console.log('Finished')
       );
+  }
+
+  onAddNoteEv(note: string){
+    this.ToDoList.push(note);
   }
 }

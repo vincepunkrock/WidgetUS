@@ -2,8 +2,10 @@
   <div class="panel-heading">
     <gridster-widget-header (itemRemoved)="removeItem($event)" [name]='name'></gridster-widget-header>
   </div>
-  <div class="panel-body">
-    <angular2-fullcalendar [options]="calendarOptions"></angular2-fullcalendar>
+  <div class="gridster-item-content">
+    <div class="panel-body">
+      <angular2-fullcalendar [options]="calendarOptions"></angular2-fullcalendar>
+    </div>
   </div>
 </div>
 
