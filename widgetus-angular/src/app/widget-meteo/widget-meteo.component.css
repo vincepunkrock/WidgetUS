@@ -3,6 +3,7 @@
 }
 .weather-container {
     margin:0px 0 0 0;
+    width:50%;
 }
 .Weather-ActualLocation {
     font-size: x-large;
@@ -16,4 +17,19 @@
 }
 .Weather-Name:first-letter {
   text-transform: capitalize;
+}
+.top-container {
+    display:flex;
+}
+.half-container{
+    width:50%;
+} 
+.left-container{
+    float:left;
+}
+.right-container{
+    float:right;
+}
+.full-container{
+    width:100%;
 }
