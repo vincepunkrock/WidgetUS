@@ -2,14 +2,19 @@ import {Component, OnInit} from '@angular/core';
 import {GridsterConfig} from '../lib/gridsterConfig.interface';
 import {HttpService} from './http.service';
 import * as _ from 'underscore';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'gridster-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [HttpService]
+  providers: [HttpService, HomeService]
 })
 export class AppComponent implements OnInit {
+
+  authenticatedUser: String = 'gagv2103'; //Hard code parce que pas acces au CAS en local
+  user: object;
+
   options: GridsterConfig;
   dashboards;
   dashboard: Array<Object>;
@@ -30,7 +35,7 @@ export class AppComponent implements OnInit {
     horaire: 3
   };
 
-  constructor(private _httpService: HttpService) {
+  constructor(private _httpService: HttpService, private homeService: HomeService) {
   }
 
   static eventStop(item, scope, event) {
@@ -49,7 +54,26 @@ export class AppComponent implements OnInit {
     console.info('itemInitialized', item);
   }
 
+  getUserInformations() {
+    this.homeService.getAuthenticatedUser().subscribe(res => {
+      if (res && res.cip) {
+        this.authenticatedUser = res.cip;
+        this.user = {name: this.authenticatedUser} ;
+        sessionStorage.setItem('user', JSON.stringify(this.user));
+      }
+      else {
+        console.log(res);
+      }
+    }, err => {
+      //Only because we can't access the CAS locally -We should add a developper mode or a saiyan mode!
+      this.user = {name: this.authenticatedUser} ;
+      sessionStorage.setItem('user', JSON.stringify(this.user));
+    });
+  }
+
   ngOnInit() {
+
+    this.getUserInformations();
 
     this.MaxWidget = 10;
 
@@ -86,11 +110,12 @@ export class AppComponent implements OnInit {
     };
 
 
-this.ToDoList = [
- 'Faire le lavage',
- 'Inscription au gym',
- 'Faire les lectures pour APP4'
-];
+    this.ToDoList = [
+     'Faire le lavage',
+     'Inscription au gym',
+     'Faire les lectures pour APP4'
+    ];
+    
     this.loadDashboard();
     // this.dashboards = [
     //   {name: 'dash 1', widgets: [{cols: 4, rows: 4, y: 0, x: 0}, {cols: 2, rows: 2, y: 0, x: 4},{cols: 2, rows: 2, y: 2, x: 4}]},
@@ -134,7 +159,7 @@ this.ToDoList = [
   }
 
   onAddWidget(widgetType: string) {
-    if (this.widgets.length < this.MaxWidget) 
+    if (this.widgets.length < this.MaxWidget)
     {
       switch(widgetType)
       {
@@ -216,12 +241,17 @@ onChangeCheck() {
               })
             };
           });
+          this.checkUserDashboard();
           this.widgets = this.dashboards[this.activeDashboardID].widgets;
           this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
         },
         error => alert(error),
         () => console.log('Finished')
       );
+  }
+
+  checkUserDashboard() {
+    // alert(JSON.stringify(this.dashboards));
   }
 
   onAddNoteEv(note: string){
