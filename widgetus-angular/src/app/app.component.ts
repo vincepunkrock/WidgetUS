@@ -115,7 +115,7 @@ export class AppComponent implements OnInit {
      'Inscription au gym',
      'Faire les lectures pour APP4'
     ];
-    
+
     this.loadDashboard();
     // this.dashboards = [
     //   {name: 'dash 1', widgets: [{cols: 4, rows: 4, y: 0, x: 0}, {cols: 2, rows: 2, y: 0, x: 4},{cols: 2, rows: 2, y: 2, x: 4}]},

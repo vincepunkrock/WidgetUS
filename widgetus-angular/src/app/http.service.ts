@@ -14,12 +14,12 @@ export class HttpService {
   }
 
   getDashboards() {
-    return this.http.get('http://10.43.158.122:3306/dashboard_widget_list?cip=eq.' + this.user.name)
+    return this.http.get('http://10.43.158.122:3306/dashboard_widget_list?cip=eq.' + this.user.cip)
       .map(res => res.json());
   }
 
   postDashboard(dashboardName) {
-    let json = {'cip': this.user.name, 'dashboard_name': dashboardName};
+    let json = {'cip': this.user.cip, 'dashboard_name': dashboardName};
     let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=representation'});
 
     return this.http.post('http://10.43.158.122:3306/dashboard', json, {headers: headers})

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import org.jasig.cas.client.validation.AssertionImpl;
@@ -32,6 +33,9 @@ public class HomeServlet extends HttpServlet {
         else if(action.equals("getCIP")){
             responseData.put("cip", getAuthenticatedCIP(request));
         }
+        else if(action.equals("getUserInfos")) {
+            responseData.putAll(getAuthenticatedUserInfos(request));
+        }
         else {
             responseData.put("error", "Action invalid. The valid actions are: 'getCIP'");
         }
@@ -45,5 +49,14 @@ public class HomeServlet extends HttpServlet {
         }
         AssertionImpl assertionImpl = (AssertionImpl) session.getAttribute("_const_cas_assertion_");
         return assertionImpl.getPrincipal().getName();
+    }
+
+    private Map<String, Object> getAuthenticatedUserInfos(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if(session == null){
+            return null;
+        }
+        AssertionImpl assertionImpl = (AssertionImpl) session.getAttribute("_const_cas_assertion_");
+        return assertionImpl.getPrincipal().getAttributes();
     }
 }
