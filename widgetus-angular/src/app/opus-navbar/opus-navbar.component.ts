@@ -10,15 +10,15 @@ import { HomeService } from '../home.service';
 export class OpusNavbarComponent implements OnInit {
 
   authenticatedUser: String = 'gagv2103';
-  user: object;
+  user: Object;
 
   constructor(private homeService: HomeService) { }
 
   ngOnInit() {
     this.homeService.getAuthenticatedUser().subscribe(res => {
-      if (res && res.cip) {
+      if (res) {
         this.authenticatedUser = res.cip;
-        this.user = {name: this.authenticatedUser} ;
+        this.user = res;
         sessionStorage.setItem('user', JSON.stringify(this.user));
       }
       else {
@@ -26,7 +26,7 @@ export class OpusNavbarComponent implements OnInit {
       }
     }, err => {
       //Only because we can't access the CAS locally -We should add a developper mode or a saiyan mode!
-      this.user = {name: this.authenticatedUser} ;
+      this.user = {cip: this.authenticatedUser} ;
       sessionStorage.setItem('user', JSON.stringify(this.user));
     });
   }
