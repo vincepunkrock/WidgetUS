@@ -13,7 +13,7 @@ import { HomeService } from './home.service';
 export class AppComponent implements OnInit {
 
   authenticatedUser: String = 'gagv2103'; //Hard code parce que pas acces au CAS en local
-  user: object;
+  user: Object;
 
   options: GridsterConfig;
   dashboards;
@@ -54,26 +54,37 @@ export class AppComponent implements OnInit {
     console.info('itemInitialized', item);
   }
 
-  getUserInformations() {
-    this.homeService.getAuthenticatedUser().subscribe(res => {
+  getUserInformations(){
+    return this.homeService.getAuthenticatedUser();
+  }
+
+  load() {
+    this.getUserInformations().subscribe(res => {
+
       if (res && res.cip) {
         this.authenticatedUser = res.cip;
-        this.user = {name: this.authenticatedUser} ;
+        this.user = {cip: this.authenticatedUser} ;
         sessionStorage.setItem('user', JSON.stringify(this.user));
+
+        this.loadDashboard();
       }
       else {
         console.log(res);
       }
-    }, err => {
+
+    }, err=> {
+
       //Only because we can't access the CAS locally -We should add a developper mode or a saiyan mode!
-      this.user = {name: this.authenticatedUser} ;
+      this.user = {cip: this.authenticatedUser} ;
       sessionStorage.setItem('user', JSON.stringify(this.user));
+      this.loadDashboard();
+
     });
   }
 
   ngOnInit() {
 
-    this.getUserInformations();
+    this.load();
 
     this.MaxWidget = 10;
 
