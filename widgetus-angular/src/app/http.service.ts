@@ -4,8 +4,6 @@ import { Http, Headers } from '@angular/http';
 @Injectable()
 export class HttpService {
 
-  user = JSON.parse(sessionStorage.getItem('user'));
-
   constructor(private http: Http) { }
 
   getUsers() {
@@ -14,12 +12,12 @@ export class HttpService {
   }
 
   getDashboards() {
-    return this.http.get('http://10.43.158.122:3306/dashboard_widget_list?cip=eq.' + this.user.cip)
+    return this.http.get('http://10.43.158.122:3306/dashboard_widget_list?cip=eq.' + this.getUser().cip)
       .map(res => res.json());
   }
 
   postDashboard(dashboardName) {
-    let json = {'cip': this.user.cip, 'dashboard_name': dashboardName};
+    let json = {'cip': this.getUser().cip, 'dashboard_name': dashboardName};
     let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=representation'});
 
     return this.http.post('http://10.43.158.122:3306/dashboard', json, {headers: headers})
@@ -31,6 +29,10 @@ export class HttpService {
 
     return this.http.post('http://10.43.158.122:3306/widget_list', widgetConfig, {headers: headers})
       .map(res => res.json());
+  }
+
+  getUser() {
+    return JSON.parse(sessionStorage.getItem('user'));
   }
 
 }
