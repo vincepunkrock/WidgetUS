@@ -1,12 +1,14 @@
 <gridster-opus-navbar></gridster-opus-navbar>
 
-<gridster-dashboard-tabs [(dashboards)]="dashboards" (onNewDashboard)="onNewDashboard($event)"   (onAddWidget)="onAddWidget($event)" (onChangeActiveTab)="onChangeActiveTab($event)"></gridster-dashboard-tabs>
+<gridster-dashboard-tabs [(dashboards)]="dashboards" (onNewDashboard)="onNewDashboard($event)" (deleteDashboard)="deleteDashboard($event)"  (onAddWidget)="onAddWidget($event)" (onChangeActiveTab)="onChangeActiveTab($event)"></gridster-dashboard-tabs>
 
 
 <gridster [options]="options">
   <gridster-item [item]="item" *ngFor="let item of widgets">
+
     <gridster-widget-meteo (removed)="removeItem($event, item)" *ngIf="item.wtype == 'météo'"></gridster-widget-meteo>
     <gridster-widget-to-do-list [(ToDoList)]="ToDoList" (removed)="removeItem($event, item)" (onAddNoteEv)="onAddNoteEv($event)" (onChangeCheck)="onChangeCheck($event)" *ngIf="item.wtype == 'note'"></gridster-widget-to-do-list>
+
     <gridster-widget-calendar (removed)="removeItem($event, item)" *ngIf="item.wtype == 'horaire'"></gridster-widget-calendar>
 
   </gridster-item>

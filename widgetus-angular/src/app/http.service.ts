@@ -33,6 +33,12 @@ export class HttpService {
       .map(res => res.json());
   }
 
+  deleteDashboard(dashboard_id) {
+    return this.http.delete('http://10.43.158.122:3306/dashboard?dashboard_id=eq.' + dashboard_id)
+      .map(res => res.json());
+  }
+
+
   postWidget(widgetConfig) {
     let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=minimal'});
 

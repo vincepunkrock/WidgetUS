@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   ToDoList: Array<String>;
   widgets: Array<Object>;
   activeDashboardID = 0;
-  currentDashboard_id;
+  currentDashboard_id;  //dashboard_id in the table dashboard in the DB
   MaxWidget: number;
   activeDashboardName: string;
   getData;
@@ -189,16 +189,29 @@ export class AppComponent implements OnInit {
       .subscribe(
         data => {
           this.dashboards.push({name: newDashboardName, widgets: []});
+          this.loadDashboard();
         },
         error => alert(error),
         () => console.log('Finished')
       );
-}
+  }
+
+  deleteDashboard() {
+    this._httpService.deleteDashboard(this.currentDashboard_id)
+      .subscribe(
+        data => {
+          this.loadDashboard();
+        },
+        error => alert(error),
+        () => console.log('Finished')
+      );
+  }
 
 
-onChangeCheck() {
-// when task done
-}
+
+  onChangeCheck() {
+  // when task done
+  }
 
   onChangeActiveTab(newActiveDashboard: string) {
     this.activeDashboardName = newActiveDashboard;
