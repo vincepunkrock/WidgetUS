@@ -14,6 +14,14 @@
             <li role="presentation"><button (click)="onAddDashboard()" >Ajouter</button></li>
         </ul>
       </li>
+      <li class="dropdown-toggle">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <span class="glyphicon glyphicon-cog"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li role="presentation"><button (click)="onDeleteDashboard()" >Effacer {{activeTab}}</button></li>
+        </ul>
+      </li>
     </ul>
      <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
