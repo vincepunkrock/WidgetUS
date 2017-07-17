@@ -46,6 +46,11 @@ export class HttpService {
       .map(res => res.json());
   }
 
+  deleteWidget(widget_id) {
+    return this.http.delete('http://10.43.158.122:3306/widget_list?widget_list_id=eq.' + widget_id)
+      .map(res => res.json());
+  }
+
   postNewUser(cip) {
     let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=representation'});
     let json = {'cip': cip};
