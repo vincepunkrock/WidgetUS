@@ -29,6 +29,7 @@ import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar'
 import { WidgetHeaderComponent } from './widget-header/widget-header.component';
 import { WidgetToDoListComponent } from './widget-to-do-list/widget-to-do-list.component';
 import { WidgetToDoItemComponent } from './widget-to-do-item/widget-to-do-item.component';
+import { WidgetNoteComponent } from './widget-note/widget-note.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { WidgetToDoItemComponent } from './widget-to-do-item/widget-to-do-item.c
     WidgetHeaderComponent,
     WidgetToDoListComponent,
     WidgetCalendarPopupComponent,
-    WidgetToDoItemComponent
+    WidgetToDoItemComponent,
+    WidgetNoteComponent
 
   ],
   imports: [

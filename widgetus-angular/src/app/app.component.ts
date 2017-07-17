@@ -32,7 +32,8 @@ export class AppComponent implements OnInit {
   typeNameToTypeId = {
     note: 1,
     horaire: 2,
-    météo: 3
+    météo: 3,
+    noteCours: 4
   };
 
   constructor(private _httpService: HttpService, private homeService: HomeService) {
@@ -158,7 +159,7 @@ export class AppComponent implements OnInit {
     // let config = {cols: 2, rows: 2, type_widget_id: widgettype, dashboard_id: this.currentDashboard_id};
     let config = {width: col, height: row, type_widget_id: this.typeNameToTypeId[widgettype], dashboard_id: this.currentDashboard_id};
     if (this.widgets.length < this.MaxWidget) {
-      if (widgettype === 'météo' || widgettype === 'horaire' || widgettype === 'note') {
+      if (widgettype === 'météo' || widgettype === 'horaire' || widgettype === 'note' || widgettype === 'noteCours') {
 
         this._httpService.postWidget(config)
           .subscribe(
@@ -178,6 +179,7 @@ export class AppComponent implements OnInit {
         case 'météo': this.widName = 'Météo';this.ncols = 2;this.nrows=1; break;
         case 'horaire': this.widName = 'Horaire';this.ncols = 2;this.nrows=2; break;
         case 'note': this.widName = 'Tâche à faire';this.ncols = 2;this.nrows=1; break;
+        case 'noteCours': this.widName = 'Notes de cours';this.ncols = 2;this.nrows=1; break;
 
         default:
           widgetType = 'météo';
