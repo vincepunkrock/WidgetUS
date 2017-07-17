@@ -31,8 +31,8 @@ export class AppComponent implements OnInit {
 
   typeNameToTypeId = {
     note: 1,
-    météo: 2,
-    horaire: 3
+    horaire: 2,
+    météo: 3
   };
 
   constructor(private _httpService: HttpService, private homeService: HomeService) {
@@ -146,7 +146,7 @@ export class AppComponent implements OnInit {
   addItem(wname: string, widgettype: string,col :number, row: number ) {
     // ici on va pouvoir ajouter dans la BD
     // let config = {cols: 2, rows: 2, type_widget_id: widgettype, dashboard_id: this.currentDashboard_id};
-    let config = {width: 1, height: 1, type_widget_id: this.typeNameToTypeId[widgettype], dashboard_id: this.currentDashboard_id};
+    let config = {width: col, height: row, type_widget_id: this.typeNameToTypeId[widgettype], dashboard_id: this.currentDashboard_id};
     if (this.widgets.length < this.MaxWidget) {
       if (widgettype === 'météo' || widgettype === 'horaire' || widgettype === 'note') {
 
