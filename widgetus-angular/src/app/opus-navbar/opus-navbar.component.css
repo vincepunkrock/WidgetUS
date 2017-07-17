@@ -1,3 +1,11 @@
 .menu-item {
   color:white;
 }
+
+.dropdown:hover {
+  background-color: #005522;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  background-color: #005522;
+}
