@@ -30,8 +30,8 @@ export class AppComponent implements OnInit {
   nrows: number;
 
   typeNameToTypeId = {
-    list: 1,
-    meteo: 2,
+    note: 1,
+    météo: 2,
     horaire: 3
   };
 
