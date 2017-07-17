@@ -34,11 +34,7 @@ export class HttpService {
   }
 
   deleteDashboard(dashboard_id) {
-    // let json = {'dashboard_id': dashboard_id};
-    // let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=representation'});
-    // let url = 'http://10.43.158.122:3306/dashboard=eq.' + dashboard_id;
     return this.http.delete('http://10.43.158.122:3306/dashboard?dashboard_id=eq.' + dashboard_id)
-    // return this.http.post('http://10.43.158.122:3306/dashboard', json, {headers: headers})
       .map(res => res.json());
   }
 
