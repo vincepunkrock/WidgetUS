@@ -141,6 +141,16 @@ export class AppComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     this.widgets.splice(this.widgets.indexOf(item), 1);
+
+    this._httpService.deleteWidget(item.id)
+      .subscribe(
+        data => {
+          this.loadDashboard();
+        },
+        error => alert(error),
+        () => console.log('Finished')
+      );
+
   }
 
   addItem(wname: string, widgettype: string,col :number, row: number ) {
