@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
     console.info('itemInitialized', item);
   }
 
-  getUserInformations(){
+  getUserInformations() {
     return this.homeService.getAuthenticatedUser();
   }
 
@@ -63,20 +63,21 @@ export class AppComponent implements OnInit {
 
       if (res && res.cip) {
         this.authenticatedUser = res.cip;
-        this.user = {cip: this.authenticatedUser} ;
+        this.user = {cip: this.authenticatedUser};
         sessionStorage.setItem('user', JSON.stringify(this.user));
-
+        this.checkUser(this.authenticatedUser);
         this.loadDashboard();
       }
       else {
         console.log(res);
       }
 
-    }, err=> {
+    }, err => {
 
       //Only because we can't access the CAS locally -We should add a developper mode or a saiyan mode!
-      this.user = {cip: this.authenticatedUser} ;
+      this.user = {cip: this.authenticatedUser};
       sessionStorage.setItem('user', JSON.stringify(this.user));
+      this.checkUser(this.authenticatedUser);
       this.loadDashboard();
 
     });
@@ -246,6 +247,33 @@ onChangeCheck() {
           this.checkUserDashboard();
           this.widgets = this.dashboards[this.activeDashboardID].widgets;
           this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
+        },
+        error => alert(error),
+        () => console.log('Finished')
+      );
+  }
+
+  checkUser(cip) {
+    this._httpService.getUserFromDB(cip)
+      .subscribe(
+        data => {
+          if (_.isEmpty(data)) {
+            //Create a new user in the DB, should be OK because he was first authentificated by the CAS
+            this.addUserToDB(cip);
+          }
+        },
+        error => alert(error),
+        () => {
+          console.log('Finished');
+        }
+      );
+  }
+
+  addUserToDB(cip) {
+    this._httpService.postNewUser(cip)
+      .subscribe(
+        data => {
+          console.info('user added...');
         },
         error => alert(error),
         () => console.log('Finished')

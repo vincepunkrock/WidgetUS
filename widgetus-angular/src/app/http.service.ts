@@ -11,6 +11,15 @@ export class HttpService {
       .map(res => res.json());
   }
 
+  getUser() {
+    return JSON.parse(sessionStorage.getItem('user'));
+  }
+
+  getUserFromDB(cip) {
+    return this.http.get('http://10.43.158.122:3306/users?cip=eq.' + cip)
+      .map(res => res.json());
+  }
+
   getDashboards() {
     return this.http.get('http://10.43.158.122:3306/dashboard_widget_list?cip=eq.' + this.getUser().cip)
       .map(res => res.json());
@@ -31,8 +40,10 @@ export class HttpService {
       .map(res => res.json());
   }
 
-  getUser() {
-    return JSON.parse(sessionStorage.getItem('user'));
+  postNewUser(cip) {
+    let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=representation'});
+    let json = {'cip': cip};
+    return this.http.post('http://10.43.158.122:3306/users', json, {headers: headers})
+      .map(res => res.json());
   }
-
 }
