@@ -189,6 +189,7 @@ export class AppComponent implements OnInit {
       .subscribe(
         data => {
           this.dashboards.push({name: newDashboardName, widgets: []});
+          this.loadDashboard();
         },
         error => alert(error),
         () => console.log('Finished')
