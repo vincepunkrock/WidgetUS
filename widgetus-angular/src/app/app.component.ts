@@ -162,9 +162,8 @@ export class AppComponent implements OnInit {
 
         this._httpService.postWidget(config)
           .subscribe(
-            data => this.widgets.push({cols: col, rows: row, name: wname, wtype: widgettype}),
-            // error => alert(error),
-            error => this.widgets.push({cols: col, rows: row, name: wname, wtype: widgettype}),
+            data => this.loadDashboard(),
+            error => this.loadDashboard(), //Should be alert(error), mais postgRest retourne un erreur meme si le widget est ajouté...Donc fix temporaire
             () => console.log('Finished')
           );
       }
