@@ -48,7 +48,17 @@ export class AppComponent implements OnInit {
   }
 
   static itemResize(item, scope) {
+    
     //console.info('itemResized', item, scope);
+
+    if(item.wtype=="horaire"){
+      
+      let element = document.getElementsByClassName("fc-scroller fc-time-grid-container")[0];
+      if(element){
+        let el = element as HTMLElement;
+        el.style.height = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.clientHeight - 170 + "px";
+      }
+    }
   }
 
   static itemInit(item) {

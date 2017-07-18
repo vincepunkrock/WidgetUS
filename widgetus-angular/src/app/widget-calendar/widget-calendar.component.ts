@@ -19,9 +19,14 @@ export class WidgetCalendarComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  updateHeight() {
+     let element = document.getElementsByClassName("fc-scroller fc-time-grid-container")[0];
+     let el = element as HTMLElement;
+     el.style.height = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.clientHeight - 170 + "px";
+}
 
-    
+  ngOnInit() {
+   
 
     this.name = 'Horaire';
     this.calendarOptions = {
@@ -34,6 +39,7 @@ export class WidgetCalendarComponent implements OnInit {
       minTime: '08:00:00',
       maxTime: '23:00:00',
       titleFormat: 'MMM D, YYYY',
+      eventAfterAllRender: this.updateHeight,
       allDaySlot: false,
       events: [
         {
@@ -93,13 +99,7 @@ export class WidgetCalendarComponent implements OnInit {
       ]
     };
 
-    let list = document.getElementsByClassName("fc-scroller fc-time-grid-container");
-    console.log(list);
-    console.log("length: " + list.length);
-    console.log("devrait printer le meme shit après ca..");
-    for (var i = 0; i < list.length; i++) {
-      console.log(list[i].id); //second console output
-    }
+    
   }
 
   removeItem(e) {
