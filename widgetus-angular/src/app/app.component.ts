@@ -2,21 +2,26 @@ import {Component, OnInit} from '@angular/core';
 import {GridsterConfig} from '../lib/gridsterConfig.interface';
 import {HttpService} from './http.service';
 import * as _ from 'underscore';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'gridster-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [HttpService]
+  providers: [HttpService, HomeService]
 })
 export class AppComponent implements OnInit {
+
+  authenticatedUser: String = 'gagv2103'; //Hard code parce que pas acces au CAS en local
+  user: Object;
+
   options: GridsterConfig;
   dashboards;
   dashboard: Array<Object>;
   ToDoList: Array<String>;
   widgets: Array<Object>;
   activeDashboardID = 0;
-  currentDashboard_id;
+  currentDashboard_id;  //dashboard_id in the table dashboard in the DB
   MaxWidget: number;
   activeDashboardName: string;
   getData;
@@ -25,31 +30,76 @@ export class AppComponent implements OnInit {
   nrows: number;
 
   typeNameToTypeId = {
-    list: 1,
-    meteo: 2,
-    horaire: 3
+    note: 1,
+    horaire: 2,
+    météo: 3,
+    noteCours: 4
   };
 
-  constructor(private _httpService: HttpService) {
+  constructor(private _httpService: HttpService, private homeService: HomeService) {
   }
 
   static eventStop(item, scope, event) {
-    console.info('eventStop', item, scope);
+    //console.info('eventStop', item, scope);
   }
 
   static itemChange(item, scope) {
-    console.info('itemChanged', item, scope);
+   // console.info('itemChanged', item, scope);
   }
 
   static itemResize(item, scope) {
-    console.info('itemResized', item, scope);
+    
+    //console.info('itemResized', item, scope);
+
+    if(item.wtype=="horaire"){
+      
+      let elements = document.getElementsByClassName("fc-scroller fc-time-grid-container");
+      for(let i = 0; i < elements.length; i++){
+        if(elements[i]){
+          let el = elements[i] as HTMLElement;
+          el.style.height = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.clientHeight - 170 + "px";
+        }
+      }
+      
+    }
   }
 
   static itemInit(item) {
-    console.info('itemInitialized', item);
+   // console.info('itemInitialized', item);
+  }
+
+  getUserInformations() {
+    return this.homeService.getAuthenticatedUser();
+  }
+
+  load() {
+    this.getUserInformations().subscribe(res => {
+
+      if (res && res.cip) {
+        this.authenticatedUser = res.cip;
+        this.user = {cip: this.authenticatedUser};
+        sessionStorage.setItem('user', JSON.stringify(this.user));
+        this.checkUser(this.authenticatedUser);
+        this.loadDashboard();
+      }
+      else {
+        console.log(res);
+      }
+
+    }, err => {
+
+      //Only because we can't access the CAS locally -We should add a developper mode or a saiyan mode!
+      this.user = {cip: this.authenticatedUser};
+      sessionStorage.setItem('user', JSON.stringify(this.user));
+      this.checkUser(this.authenticatedUser);
+      this.loadDashboard();
+
+    });
   }
 
   ngOnInit() {
+
+    this.load();
 
     this.MaxWidget = 10;
 
@@ -86,19 +136,11 @@ export class AppComponent implements OnInit {
     };
 
 
-this.ToDoList = [
- 'Faire le lavage',
- 'Inscription au gym',
- 'Faire les lectures pour APP4'
-];
-    this.loadDashboard();
-    // this.dashboards = [
-    //   {name: 'dash 1', widgets: [{cols: 4, rows: 4, y: 0, x: 0}, {cols: 2, rows: 2, y: 0, x: 4},{cols: 2, rows: 2, y: 2, x: 4}]},
-    //   {name: 'dash 2', widgets: []},
-    //   {name: 'dash 3', widgets: []}
-    // ];
-
-    // this.widgets = this.dashboards[this.activeDashboardID].widgets;
+    this.ToDoList = [
+     'Faire le lavage',
+     'Inscription au gym',
+     'Faire les lectures pour APP4'
+    ];
   }
 
   changedOptions() {
@@ -113,37 +155,51 @@ this.ToDoList = [
     event.preventDefault();
     event.stopPropagation();
     this.widgets.splice(this.widgets.indexOf(item), 1);
+
+    this._httpService.deleteWidget(item.id)
+      .subscribe(
+        data => {
+          this.loadDashboard();
+        },
+        error => alert(error),
+        () => {
+          //console.log('Finished')
+        }
+      );
+
   }
 
   addItem(wname: string, widgettype: string,col :number, row: number ) {
     // ici on va pouvoir ajouter dans la BD
     // let config = {cols: 2, rows: 2, type_widget_id: widgettype, dashboard_id: this.currentDashboard_id};
-    let config = {width: 1, height: 1, type_widget_id: this.typeNameToTypeId[widgettype], dashboard_id: this.currentDashboard_id};
+    let config = {width: col, height: row, type_widget_id: this.typeNameToTypeId[widgettype], dashboard_id: this.currentDashboard_id};
     if (this.widgets.length < this.MaxWidget) {
-      if (widgettype === 'meteo' || widgettype === 'horaire' || widgettype === 'list') {
+      if (widgettype === 'météo' || widgettype === 'horaire' || widgettype === 'note' || widgettype === 'noteCours') {
 
         this._httpService.postWidget(config)
           .subscribe(
-            data => this.widgets.push({cols: col, rows: row, name: wname, wtype: widgettype}),
-            // error => alert(error),
-            error => this.widgets.push({cols: col, rows: row, name: wname, wtype: widgettype}),
-            () => console.log('Finished')
+            data => this.loadDashboard(),
+            error => this.loadDashboard(), //Should be alert(error), mais postgRest retourne un erreur meme si le widget est ajouté...Donc fix temporaire
+            () => {
+              //console.log('Finished')
+            }
           );
       }
     }
   }
 
   onAddWidget(widgetType: string) {
-    if (this.widgets.length < this.MaxWidget) 
+    if (this.widgets.length < this.MaxWidget)
     {
       switch(widgetType)
       {
-        case 'meteo': this.widName = 'Météo';this.ncols = 2;this.nrows=1; break;
+        case 'météo': this.widName = 'Météo';this.ncols = 2;this.nrows=1; break;
         case 'horaire': this.widName = 'Horaire';this.ncols = 2;this.nrows=2; break;
-        case 'list': this.widName = 'Tâche à faire';this.ncols = 2;this.nrows=1; break;
+        case 'note': this.widName = 'Tâche à faire';this.ncols = 2;this.nrows=1; break;
+        case 'noteCours': this.widName = 'Notes de cours';this.ncols = 2;this.nrows=1; break;
 
         default:
-          widgetType = 'meteo';
+          widgetType = 'météo';
           this.widName = 'Météo';
           this.ncols = 2;
           this.nrows=1;
@@ -161,16 +217,33 @@ this.ToDoList = [
       .subscribe(
         data => {
           this.dashboards.push({name: newDashboardName, widgets: []});
+          this.loadDashboard();
         },
         error => alert(error),
-        () => console.log('Finished')
+        () => {
+          //console.log('Finished')
+        }
       );
-}
+  }
+
+  deleteDashboard() {
+    this._httpService.deleteDashboard(this.currentDashboard_id)
+      .subscribe(
+        data => {
+          this.loadDashboard();
+        },
+        error => alert(error),
+        () => {
+          //console.log('Finished')
+        }
+      );
+  }
 
 
-onChangeCheck() {
-// when task done
-}
+
+  onChangeCheck() {
+  // when task done
+  }
 
   onChangeActiveTab(newActiveDashboard: string) {
     this.activeDashboardName = newActiveDashboard;
@@ -184,7 +257,9 @@ onChangeCheck() {
       .subscribe(
         data => this.getData = JSON.stringify(data),
         error => alert(error),
-        () => console.log('Finished')
+        () =>  {
+          //console.log('Finished')
+        }
       );
   }
 
@@ -216,12 +291,48 @@ onChangeCheck() {
               })
             };
           });
+          this.checkUserDashboard();
           this.widgets = this.dashboards[this.activeDashboardID].widgets;
           this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
         },
         error => alert(error),
-        () => console.log('Finished')
+        () => {
+          //console.log('Finished')
+        }
       );
+  }
+
+  checkUser(cip) {
+    this._httpService.getUserFromDB(cip)
+      .subscribe(
+        data => {
+          if (_.isEmpty(data)) {
+            //Create a new user in the DB, should be OK because he was first authentificated by the CAS
+            this.addUserToDB(cip);
+          }
+        },
+        error => alert(error),
+        () => {
+          //console.log('Finished');
+        }
+      );
+  }
+
+  addUserToDB(cip) {
+    this._httpService.postNewUser(cip)
+      .subscribe(
+        data => {
+          console.info('user added...');
+        },
+        error => alert(error),
+        () => {
+          //console.log('Finished');
+        }
+      );
+  }
+
+  checkUserDashboard() {
+    // alert(JSON.stringify(this.dashboards));
   }
 
   onAddNoteEv(note: string){

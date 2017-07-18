@@ -1,15 +1,22 @@
-<div class="panel panel-warning">
+<div class="panel-warning">
   <div class="panel-heading">
     <gridster-widget-header (itemRemoved)="removeItem($event)" [name]='name'></gridster-widget-header>
   </div>
   <div class="gridster-item-content">
-  <div class="weather-container">
-  <div class="Weather-Location">{{cityResult}}</div>
 
-  <div class="Weather-Date"> {{date|date:'EEEE, MMMM d H:mm'}} </div>
 
-  <div class="Weather-Name"> {{desc}} </div>
-
+<div class="top-container">
+  <div class="half-container left-container">
+    <div class="Weather-ActualLocation">{{cityResult}}</div>
+    <div class="Weather-Date"> {{date|date:'EEEE, MMMM d H:mm'}}</div>
+    <div class="Weather-Name"> {{desc}}</div>
+  </div>
+  <div class="half-container right-container">
+    <input type="text" [(ngModel)]="cityQuery">
+    <button type="button" (click)="loadWeather()" ><span class="glyphicon glyphicon-search"></span></button>
+  </div>
+</div>
+<div class="full-container">
   <div id="Weather-Actual" style="font:16px arial,helvetica,sans-serif;padding:20px 0 0 0">
     <div>
       <!--<img id="Weather-Icon" style="float:left;height:64px;width:64px" src={{iconID}}>-->
@@ -39,10 +46,6 @@
       </div>
     </div>
   </div>
-
-  <!--<div class="Weather-Forecast" style="margin-bottom:-1px;padding:0;padding-bottom:1px;cursor:pointer">-->
-    <!--Forecast...-->
-  <!--</div>-->
 </div>
 </div>
 </div>

@@ -1,29 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from '../home.service';
 
 @Component({
   selector: 'gridster-opus-navbar',
   templateUrl: './opus-navbar.component.html',
   styleUrls: ['./opus-navbar.component.css'],
-  providers: [ HomeService ]
+  providers: [ ]
 })
 export class OpusNavbarComponent implements OnInit {
+  user = JSON.parse(sessionStorage.getItem('user')) || "gagv2103";
+  authenticatedUser: String = this.user.cip; //Hard code parce que pas acces au CAS en local
 
-  authenticatedUser: String = "";
-
-  constructor(private homeService: HomeService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.homeService.getAuthenticatedUser().subscribe(res => {
-      if(res && res.cip){
-        this.authenticatedUser = res.cip;
-      }
-      else {
-        console.log(res);
-      }
-    }, err => {
 
-    });
   }
 
 }

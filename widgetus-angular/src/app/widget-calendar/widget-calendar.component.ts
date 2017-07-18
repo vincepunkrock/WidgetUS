@@ -1,9 +1,13 @@
+
 import {Component, OnInit, Input, Output, EventEmitter, ViewContainerRef} from '@angular/core';
 import {Overlay} from 'angular2-modal';
 import {Modal} from 'angular2-modal/plugins/bootstrap';
 import {CalendarService} from '../calendar.service';
 import * as nodeIcal from 'node-ical';
 import * as _ from 'underscore';
+
+import { forEach } from '@angular/router/src/utils/collection';
+
 
 @Component({
   selector: 'gridster-widget-calendar',
@@ -20,22 +24,19 @@ export class WidgetCalendarComponent implements OnInit {
   calendarOptions: Object;
   ics: String
 
-  constructor(private calendarService: CalendarService) {
-    this.calendarOptions = {
-      height: '1000', // make a function to adjust ??
-      fixedWeekCount: false,
-      //defaultDate: '2016-09-12',
-      defaultView: 'agendaDay',
-      editable: false,
-      eventLimit: true, // allow "more" link when too many events
-      minTime: '08:00:00',
-      maxTime: '23:00:00',
-      titleFormat: 'MMM D, YYYY',
-      allDaySlot: false
-    };
-  }
 
-  getEventsFromIcal(callback) {
+  constructor(private calendarService: CalendarService) {
+
+    }
+
+  updateHeight() {
+    let elements = document.getElementsByClassName("fc-scroller fc-time-grid-container");
+    for(let i = 0; i < elements.length; i++){
+      if(elements[i]){
+        let el = elements[i] as HTMLElement;
+        el.style.height = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.clientHeight - 170 + "px";
+      }
+    }
   }
 
   ngOnInit() {
@@ -58,6 +59,17 @@ export class WidgetCalendarComponent implements OnInit {
           });
           this.name = 'Horaire';
           this.calendarOptions = {
+            contentHeight: '1000', // make a function to adjust ??
+            fixedWeekCount: false,
+            //defaultDate: '2016-09-12',
+            defaultView: 'agendaDay',
+            editable: false,
+            eventLimit: true, // allow "more" link when too many events
+            minTime: '08:00:00',
+            maxTime: '23:00:00',
+            titleFormat: 'MMM D, YYYY',
+            allDaySlot: false,
+            eventAfterAllRender: this.updateHeight,
             events: icalArray /*[
              {
              title: 'All Day Event',
@@ -122,6 +134,5 @@ export class WidgetCalendarComponent implements OnInit {
   removeItem(e) {
     this.removed.emit(e);
   }
-
 
 }

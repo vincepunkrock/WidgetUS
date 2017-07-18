@@ -15,11 +15,12 @@ export class DashboardTabsComponent implements OnInit {
 
   @Input() dashboards;
   @Output() onNewDashboard = new EventEmitter<string>();
+  @Output() deleteDashboard = new EventEmitter<string>();
   @Output() onChangeActiveTab = new EventEmitter<string>();
   @Output() onAddWidget = new EventEmitter<string>();
 
   newDashboardName = '';
-
+  dashboardNameToDelete = '';
   activeTab;
 
   constructor(public modal: Modal) {}
@@ -32,6 +33,10 @@ export class DashboardTabsComponent implements OnInit {
 
   onAddDashboard() {
     this.onNewDashboard.emit(this.newDashboardName);
+  }
+
+  onDeleteDashboard() {
+    this.deleteDashboard.emit();
   }
 
   onAddWidgetClick(widgetType: string) {
