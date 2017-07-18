@@ -40,19 +40,19 @@ export class AppComponent implements OnInit {
   }
 
   static eventStop(item, scope, event) {
-    console.info('eventStop', item, scope);
+    //console.info('eventStop', item, scope);
   }
 
   static itemChange(item, scope) {
-    console.info('itemChanged', item, scope);
+   // console.info('itemChanged', item, scope);
   }
 
   static itemResize(item, scope) {
-    console.info('itemResized', item, scope);
+    //console.info('itemResized', item, scope);
   }
 
   static itemInit(item) {
-    console.info('itemInitialized', item);
+   // console.info('itemInitialized', item);
   }
 
   getUserInformations() {
@@ -149,7 +149,9 @@ export class AppComponent implements OnInit {
           this.loadDashboard();
         },
         error => alert(error),
-        () => console.log('Finished')
+        () => {
+          //console.log('Finished')
+        }
       );
 
   }
@@ -165,7 +167,9 @@ export class AppComponent implements OnInit {
           .subscribe(
             data => this.loadDashboard(),
             error => this.loadDashboard(), //Should be alert(error), mais postgRest retourne un erreur meme si le widget est ajouté...Donc fix temporaire
-            () => console.log('Finished')
+            () => {
+              //console.log('Finished')
+            }
           );
       }
     }
@@ -203,7 +207,9 @@ export class AppComponent implements OnInit {
           this.loadDashboard();
         },
         error => alert(error),
-        () => console.log('Finished')
+        () => {
+          //console.log('Finished')
+        }
       );
   }
 
@@ -214,7 +220,9 @@ export class AppComponent implements OnInit {
           this.loadDashboard();
         },
         error => alert(error),
-        () => console.log('Finished')
+        () => {
+          //console.log('Finished')
+        }
       );
   }
 
@@ -236,7 +244,9 @@ export class AppComponent implements OnInit {
       .subscribe(
         data => this.getData = JSON.stringify(data),
         error => alert(error),
-        () => console.log('Finished')
+        () =>  {
+          //console.log('Finished')
+        }
       );
   }
 
@@ -273,7 +283,9 @@ export class AppComponent implements OnInit {
           this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
         },
         error => alert(error),
-        () => console.log('Finished')
+        () => {
+          //console.log('Finished')
+        }
       );
   }
 
@@ -288,7 +300,7 @@ export class AppComponent implements OnInit {
         },
         error => alert(error),
         () => {
-          console.log('Finished');
+          //console.log('Finished');
         }
       );
   }
@@ -300,7 +312,9 @@ export class AppComponent implements OnInit {
           console.info('user added...');
         },
         error => alert(error),
-        () => console.log('Finished')
+        () => {
+          //console.log('Finished');
+        }
       );
   }
 

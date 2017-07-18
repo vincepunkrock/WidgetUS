@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewContainerRef} from '@angular/core';
 import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'gridster-widget-calendar',
@@ -20,9 +21,11 @@ export class WidgetCalendarComponent implements OnInit {
 
   ngOnInit() {
 
+    
+
     this.name = 'Horaire';
     this.calendarOptions = {
-      height: '1000', // make a function to adjust ??
+      contentHeight: '1000', // make a function to adjust ??
       fixedWeekCount: false,
       defaultDate: '2016-09-12',
       defaultView: 'agendaDay',
@@ -89,6 +92,14 @@ export class WidgetCalendarComponent implements OnInit {
         }
       ]
     };
+
+    let list = document.getElementsByClassName("fc-scroller fc-time-grid-container");
+    console.log(list);
+    console.log("length: " + list.length);
+    console.log("devrait printer le meme shit après ca..");
+    for (var i = 0; i < list.length; i++) {
+      console.log(list[i].id); //second console output
+    }
   }
 
   removeItem(e) {
