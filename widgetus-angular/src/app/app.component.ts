@@ -53,11 +53,14 @@ export class AppComponent implements OnInit {
 
     if(item.wtype=="horaire"){
       
-      let element = document.getElementsByClassName("fc-scroller fc-time-grid-container")[0];
-      if(element){
-        let el = element as HTMLElement;
-        el.style.height = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.clientHeight - 170 + "px";
+      let elements = document.getElementsByClassName("fc-scroller fc-time-grid-container");
+      for(let i = 0; i < elements.length; i++){
+        if(elements[i]){
+          let el = elements[i] as HTMLElement;
+          el.style.height = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.clientHeight - 170 + "px";
+        }
       }
+      
     }
   }
 
