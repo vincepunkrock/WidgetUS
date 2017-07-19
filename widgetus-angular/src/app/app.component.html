@@ -7,8 +7,7 @@
   <gridster-item [item]="item" *ngFor="let item of widgets">
 
     <gridster-widget-meteo (removed)="removeItem($event, item)" *ngIf="item.wtype == 'météo'"></gridster-widget-meteo>
-    <gridster-widget-to-do-list [(ToDoList)]="ToDoList" (removed)="removeItem($event, item)" (onAddNoteEv)="onAddNoteEv($event)" (onChangeCheck)="onChangeCheck($event)" *ngIf="item.wtype == 'note'"></gridster-widget-to-do-list>
-
+    <gridster-widget-to-do-list (removed)="removeItem($event, item)" *ngIf="item.wtype == 'note'"></gridster-widget-to-do-list>
     <gridster-widget-calendar (removed)="removeItem($event, item)" *ngIf="item.wtype == 'horaire'"></gridster-widget-calendar>
 
   </gridster-item>

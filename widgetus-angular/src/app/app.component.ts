@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   options: GridsterConfig;
   dashboards;
   dashboard: Array<Object>;
-  ToDoList: Array<String>;
   widgets: Array<Object>;
   activeDashboardID = 0;
   currentDashboard_id;  //dashboard_id in the table dashboard in the DB
@@ -120,13 +119,6 @@ export class AppComponent implements OnInit {
       swap: true,
       displayGrid: 'none'
     };
-
-
-    this.ToDoList = [
-     'Faire le lavage',
-     'Inscription au gym',
-     'Faire les lectures pour APP4'
-    ];
   }
 
   changedOptions() {
@@ -205,12 +197,6 @@ export class AppComponent implements OnInit {
         error => alert(error),
         () => console.log('Finished')
       );
-  }
-
-
-
-  onChangeCheck() {
-  // when task done
   }
 
   onChangeActiveTab(newActiveDashboard: string) {
@@ -295,9 +281,5 @@ export class AppComponent implements OnInit {
 
   checkUserDashboard() {
     // alert(JSON.stringify(this.dashboards));
-  }
-
-  onAddNoteEv(note: string){
-    this.ToDoList.push(note);
   }
 }

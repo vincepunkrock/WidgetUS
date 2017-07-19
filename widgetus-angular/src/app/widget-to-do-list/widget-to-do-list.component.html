@@ -2,6 +2,8 @@
   <div class="panel-heading">
     <gridster-widget-header (itemRemoved)="removeItem($event)" [name]='name'></gridster-widget-header>
   </div>
+
+
   <div class="gridster-item-content">
     <div class="row">
     <div class="col-lg-6">
@@ -13,9 +15,9 @@
       </div>
     </div>
     </div>
-    <div class="droptarget">
+    <div class="avec-scroll">
     <ul class="list-group NoMargin" *ngFor="let ToDoItem of ToDoList">
-            <gridster-widget-to-do-item [ToDoContents]="ToDoItem"  (onCheck)="onCheck($event)"></gridster-widget-to-do-item>
+            <gridster-widget-to-do-item [ToDoContents]="ToDoItem" (onChangeListItem)="onChangeItemNote($event,ToDoItem)" ></gridster-widget-to-do-item>
     </ul>
     </div>
   </div>

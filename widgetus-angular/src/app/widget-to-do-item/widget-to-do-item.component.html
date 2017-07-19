@@ -1,3 +1,9 @@
-<li draggable="true">
-    <a class="list-group-item" (click)="onCheck()" [ngClass]="{ 'active': isChecked}" >{{ToDoContents}}</a>
-</li>
+<div class="dropdown">
+    <li>
+        <a class="list-group-item dropdown-toggle" (dblclick)="onCheck()" [ngClass]="{ 'active': isChecked}" data-toggle="dropdown">{{ToDoContents}}</a>
+        <ul class="dropdown-menu">
+            <li><a (click)="onCheck()" >{{complete}}</a></li>
+            <li><a (click)="onDelete()">supprimer</a></li>
+        </ul>
+    </li>
+</div>
