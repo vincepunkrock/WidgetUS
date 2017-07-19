@@ -3,12 +3,14 @@ import {GridsterConfig} from '../lib/gridsterConfig.interface';
 import {HttpService} from './http.service';
 import * as _ from 'underscore';
 import { HomeService } from './home.service';
+import { CalendarService } from './calendar.service';
+import * as nodeIcal from 'node-ical';
 
 @Component({
   selector: 'gridster-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [HttpService, HomeService]
+  providers: [HttpService, HomeService, CalendarService]
 })
 export class AppComponent implements OnInit {
 
@@ -19,6 +21,7 @@ export class AppComponent implements OnInit {
   dashboards;
   dashboard: Array<Object>;
   ToDoList: Array<String>;
+  events = [];
   widgets: Array<Object>;
   activeDashboardID = 0;
   currentDashboard_id;  //dashboard_id in the table dashboard in the DB
@@ -36,7 +39,7 @@ export class AppComponent implements OnInit {
     noteCours: 4
   };
 
-  constructor(private _httpService: HttpService, private homeService: HomeService) {
+  constructor(private _httpService: HttpService, private homeService: HomeService, private calendarService: CalendarService) {
   }
 
   static eventStop(item, scope, event) {
@@ -48,11 +51,11 @@ export class AppComponent implements OnInit {
   }
 
   static itemResize(item, scope) {
-    
+
     //console.info('itemResized', item, scope);
 
     if(item.wtype=="horaire"){
-      
+
       let elements = document.getElementsByClassName("fc-scroller fc-time-grid-container");
       for(let i = 0; i < elements.length; i++){
         if(elements[i]){
@@ -60,7 +63,7 @@ export class AppComponent implements OnInit {
           el.style.height = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.clientHeight - 170 + "px";
         }
       }
-      
+
     }
   }
 
@@ -93,8 +96,32 @@ export class AppComponent implements OnInit {
       sessionStorage.setItem('user', JSON.stringify(this.user));
       this.checkUser(this.authenticatedUser);
       this.loadDashboard();
+      this.loadEvents();
 
     });
+  }
+
+  loadEvents() {
+
+    var that = this;
+    this.calendarService.getEvents()
+      .subscribe(
+        data => {
+          let ical = nodeIcal.parseICS(data.text());
+
+          _.forEach(ical, (i: any) => {
+            if (i.type === 'VEVENT') {
+              var tmp = {
+                start: i.start,
+                end: i.end,
+                title: i.summary
+              };
+              that.events.push(tmp);
+            }
+          });
+        },
+        error => alert('error : ' + error)
+      );
   }
 
   ngOnInit() {
