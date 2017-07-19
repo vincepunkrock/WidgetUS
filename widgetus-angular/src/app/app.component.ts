@@ -291,6 +291,7 @@ export class AppComponent implements OnInit {
               })
             };
           });
+          this.dashboards = _.sortBy(this.dashboards, function(obj:any) {return obj.id;});
           this.checkUserDashboard();
           this.widgets = this.dashboards[this.activeDashboardID].widgets;
           this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
