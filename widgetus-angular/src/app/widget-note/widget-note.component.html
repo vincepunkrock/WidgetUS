@@ -1,12 +1,8 @@
-<div class="panel-warning">
+<div class="panel panel-warning" style="width: 100%; height: 85%;">
   <div class="panel-heading">
     <gridster-widget-header (itemRemoved)="removeItem($event)" [name]='name'></gridster-widget-header>
   </div>
-  <div class="gridster-item-content">
-
-    <div class="full-container">
-      <object type="text/html" data="https://s6ie1704.gel.usherbrooke.ca/notes" style="width: 100%; padding:20px 0 0 0">
-      </object>
-    </div>
+  <div class="gridster-item-content" style="width: 100%; height: 100%">
+      <iframe src="https://s6ie1704.gel.usherbrooke.ca/notes" width="100%" height="100%"></iframe>
   </div>
 </div>
