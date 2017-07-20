@@ -1,6 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewContainerRef, ViewChild, ElementRef} from '@angular/core';
 import {Overlay} from 'angular2-modal';
-import {Modal} from 'angular2-modal/plugins/bootstrap';
 import {CalendarService} from '../calendar.service';
 
 @Component({
