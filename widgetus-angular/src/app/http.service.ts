@@ -25,6 +25,19 @@ export class HttpService {
       .map(res => res.json());
   }
 
+  postToDoTask(widget_list_id, ToDo, row_id) {
+    let json = {'widget_list_id':widget_list_id, 'row_value': ToDo, 'row_id': row_id};
+    let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=representation'});
+
+    return this.http.post('http://10.43.158.122:3306/widgetlist_widgetkey', json, {headers: headers})
+      .map(res => res.json());
+  }
+
+  deleteToDoTask(widget_list_id2) {
+    return this.http.delete('http://10.43.158.122:3306/widgetlist_widgetkey?widget_list_id2=eq.' + widget_list_id2)
+      .map(res => res.json());
+  }
+
   postDashboard(dashboardName) {
     let json = {'cip': this.getUser().cip, 'dashboard_name': dashboardName};
     let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=representation'});

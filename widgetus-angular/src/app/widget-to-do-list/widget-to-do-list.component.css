@@ -5,3 +5,9 @@
 .NoMargin {
     margin: 0;
 }
+
+.avec-scroll{
+  height:150px;
+  overflow-y:auto;
+  width: 100%;
+}

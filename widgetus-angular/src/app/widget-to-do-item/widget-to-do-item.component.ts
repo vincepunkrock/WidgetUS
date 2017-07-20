@@ -7,21 +7,32 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
   styleUrls: ['./widget-to-do-item.component.css']
 })
 export class WidgetToDoItemComponent implements OnInit {
-
   @Input() ToDoContents;
-  @Output() onCheckedItem = new EventEmitter<boolean>();
-
+  @Output() onChangeListItem = new EventEmitter<string>();
 
   isChecked: boolean;
+  complete: string;
 
   constructor() { }
-
+  
   ngOnInit() {
+    this.complete = 'complété';
     this.isChecked = false;
   }
 
   onCheck() {
     this.isChecked = !this.isChecked;
-    this.onCheckedItem.emit(this.isChecked);
+    if(this.isChecked){
+      this.complete = 'non-complété';
+    }
+    else{
+      this.complete = 'complété';
+    }
+    this.onChangeListItem.emit(this.complete);
   }
+
+  onDelete() {
+    this.onChangeListItem.emit('supprimer');
+  }
+
 }
