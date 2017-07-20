@@ -13,6 +13,7 @@ import {CalendarService} from '../calendar.service';
 export class WidgetCalendarComponent implements OnInit {
   @ViewChild('mycal', {read: ElementRef}) myCal: ElementRef;
   @Input() events;
+  @Input() widget;
   @Output() removed = new EventEmitter();
   @Output() name: string;
 
@@ -38,7 +39,7 @@ export class WidgetCalendarComponent implements OnInit {
       maxTime: '23:00:00',
       titleFormat: 'MMM D, YYYY',
       allDaySlot: false,
-      events: this.events
+      events: this.widget.properties.events
     };
   }
 
