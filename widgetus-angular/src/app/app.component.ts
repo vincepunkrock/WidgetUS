@@ -373,14 +373,14 @@ export class AppComponent implements OnInit {
           this.checkUserDashboard();
 
           async.map(this.dashboards[this.activeDashboardID].widgets, (config: any, callback) => {
-            if (config.wtype === 'horaire') {
+           /* if (config.wtype === 'horaire') {
               that.loadEvents(config.properties.keyValue, (events) => {
                 config.properties.events = events;
                 callback(null, config);
               });
-            } else {
+            } else {*/
               callback(null, config);
-            }
+           // }
           }, (err, results) => {
             this.widgets = results;
             this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
