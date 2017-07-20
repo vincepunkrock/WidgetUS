@@ -14,7 +14,7 @@ export class GridsterItemComponent implements OnInit, OnDestroy {
   @Input() item: GridsterItem;
   @Output() itemChange: EventEmitter<GridsterItem> = new EventEmitter();
   @Output() itemResize: EventEmitter<GridsterItem> = new EventEmitter();
-  @Output() itemChange2: EventEmitter<GridsterItem> = new EventEmitter();
+  @Output() itemUpdate: EventEmitter<GridsterItem> = new EventEmitter();
   $item: GridsterItem;
   el: any;
   gridster: GridsterComponent;
@@ -108,7 +108,7 @@ export class GridsterItemComponent implements OnInit, OnDestroy {
 
   itemChanged(): void {
     this.itemChange.emit(this.item);
-    this.itemChange2.emit(this.item);
+    this.itemUpdate.emit(this.item);
     if (this.gridster.$options.itemChangeCallback) {
       this.gridster.$options.itemChangeCallback(this.item, this);
     }

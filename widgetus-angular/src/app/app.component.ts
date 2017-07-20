@@ -47,15 +47,15 @@ export class AppComponent implements OnInit {
   }
 
   static itemChange(item, scope) {
-    console.info('itemChanged', item, scope);
+    // console.info('itemChanged', item, scope);
   }
 
-  itemChange2(item) {
+  itemUpdate(item) {
     if(this._httpService != null){
-      console.info('itemChanged2' + item.id, item);
+      // console.info('itemChanged2' + item.id, item);
 
       let config = {width: item.cols, height: item.rows, y_position: item.y, x_position: item.x};
-      console.log(config);
+      // console.log(config);
       this._httpService.updateWidget(config, item.id)
         .subscribe(
           data => this.loadDashboard(),
@@ -100,7 +100,7 @@ export class AppComponent implements OnInit {
         this.loadDashboard();
       }
       else {
-        console.log(res);
+        console.log('No cip from getUserInformations');
       }
 
     }, err => {
