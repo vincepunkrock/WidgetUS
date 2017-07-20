@@ -8,10 +8,7 @@ export class CalendarService {
   constructor(private http: Http) {
   }
 
-  getEvents(): Observable<any> {
-    return this.http.get('http://s6ie1709.gel.usherbrooke.ca:8080/widgetus/CalendarServlet?action=getEvents')
-      .map((res) => res.json())
-      .catch((err) => Observable.throw(err));
+  getEvents() {
+    return this.http.get("https://www.gel.usherbrooke.ca/horarius/ical?h=vWGRHK15%2Bi7VZimGYG9dpmBhiMkq4r47ffaa8MrrkKE%3D");
   }
-
 }
