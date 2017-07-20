@@ -29,8 +29,7 @@ export class HttpService {
     let json = {'cip': this.getUser().cip, 'dashboard_name': dashboardName};
     let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=representation'});
 
-    return this.http.post('http://10.43.158.122:3306/dashboard', json, {headers: headers})
-      .map(res => res.json());
+    return this.http.post('http://10.43.158.122:3306/dashboard', json, {headers: headers});
   }
 
   deleteDashboard(dashboard_id) {
@@ -40,10 +39,9 @@ export class HttpService {
 
 
   postWidget(widgetConfig) {
-    let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=minimal'});
+    let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=minimal', 'X-Requested-With': 'XMLHttpRequest'});
 
-    return this.http.post('http://10.43.158.122:3306/widget_list', widgetConfig, {headers: headers})
-      .map(res => res.json());
+    return this.http.post('http://10.43.158.122:3306/widget_list', widgetConfig, {headers: headers});
   }
 
   deleteWidget(widget_id) {
@@ -54,8 +52,7 @@ export class HttpService {
   postNewUser(cip) {
     let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=representation'});
     let json = {'cip': cip};
-    return this.http.post('http://10.43.158.122:3306/users', json, {headers: headers})
-      .map(res => res.json());
+    return this.http.post('http://10.43.158.122:3306/users', json, {headers: headers});
   }
 
   updateWidget(widgetConfig, widget_id) {

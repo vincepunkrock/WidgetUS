@@ -233,7 +233,7 @@ export class AppComponent implements OnInit {
         this._httpService.postWidget(config)
           .subscribe(
             data => this.loadDashboard(),
-            error => this.loadDashboard(), //Should be alert(error), mais postgRest retourne un erreur meme si le widget est ajouté...Donc fix temporaire
+            error => window.alert(error),
             () => {
               //console.log('Finished')
             }
