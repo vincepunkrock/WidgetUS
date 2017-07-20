@@ -52,11 +52,10 @@ export class AppComponent implements OnInit {
   }
 
   itemUpdate(item) {
-    if (this._httpService != null) {
-      // console.info('itemChanged2' + item.id, item);
+
+    if (this._httpService != null && item.id != null) {
 
       let config = {width: item.cols, height: item.rows, y_position: item.y, x_position: item.x};
-      // console.log(config);
       this._httpService.updateWidget(config, item.id)
         .subscribe(
           data => this.loadDashboard(),
