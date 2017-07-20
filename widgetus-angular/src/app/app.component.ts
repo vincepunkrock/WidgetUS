@@ -294,10 +294,14 @@ export class AppComponent implements OnInit {
       );
   }
 
-  deleteDashboard(arg) {
-    this._httpService.deleteDashboard(this.currentDashboard_id)
+  deleteDashboard(tab) {
+    this._httpService.deleteDashboard(tab.id)
       .subscribe(
         data => {
+          let index = this.dashboards.map(function(e) { return e.id; }).indexOf(tab.id);
+          this.dashboards.splice(index, 1);
+          this.activeDashboardID = 0;
+          this.currentDashboard_id = 0;
           this.loadDashboard();
         },
         error => alert(error),

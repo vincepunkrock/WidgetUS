@@ -11,7 +11,7 @@
         </a>
         <ul class="dropdown-menu">
             <li role="presentation"><input type="text" class="form-control" [(ngModel)]="newDashboardName"></li>
-            <li role="presentation"><button (click)="onAddDashboard()" >Ajouter</button></li>
+            <li role="presentation"><button class="btn btn-default" (click)="onAddDashboard()" >Ajouter</button></li>
         </ul>
       </li>
       <li class="dropdown-toggle">
@@ -19,7 +19,12 @@
           <span class="glyphicon glyphicon-cog"></span>
         </a>
         <ul class="dropdown-menu">
-          <li role="presentation"><button (click)="onDeleteDashboard()" >Effacer {{activeTab}}</button></li>
+          <li role="presentation" *ngFor="let tab of dashboards">
+          <button type="button" class="btn btn-default" (click)="onDeleteDashboard(tab)"  [disabled]="dashboards.length <= 1">
+            <span class="glyphicon glyphicon-trash" style="margin-right: 5px"></span>
+            Effacer   {{tab.name}}
+          </button>
+          </li>
         </ul>
       </li>
     </ul>

@@ -33,8 +33,8 @@ export class DashboardTabsComponent implements OnInit {
     this.onNewDashboard.emit(this.newDashboardName);
   }
 
-  onDeleteDashboard() {
-    this.deleteDashboard.emit();
+  onDeleteDashboard(tab) {
+    this.deleteDashboard.emit(tab);
   }
 
   onAddWidgetClick(widgetType: string) {
