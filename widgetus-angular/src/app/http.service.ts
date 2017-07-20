@@ -57,4 +57,12 @@ export class HttpService {
     return this.http.post('http://10.43.158.122:3306/users', json, {headers: headers})
       .map(res => res.json());
   }
+
+  updateWidget(widgetConfig, widget_id) {
+    let headers = new Headers({'Content-Type': 'application/json', 'Prefer': 'return=minimal'});
+
+    return this.http.patch('http://10.43.158.122:3306/widget_list?widget_list_id=eq.' + widget_id, widgetConfig, {headers: headers})
+      .map(res => res.json());
+  }
+
 }
