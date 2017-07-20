@@ -5,6 +5,7 @@ import * as _ from 'underscore';
 import {HomeService} from './home.service';
 import {CalendarService} from './calendar.service';
 import * as nodeIcal from 'node-ical';
+import * as async from 'async';
 
 @Component({
   selector: 'gridster-root',
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
   dashboards;
   dashboard: Array<Object>;
   events = [];
-  widgets: Array<Object>;
+  widgets: Array<any>;
   activeDashboardID = 0;
   currentDashboard_id;  //dashboard_id in the table dashboard in the DB
   MaxWidget: number;
@@ -50,18 +51,19 @@ export class AppComponent implements OnInit {
   }
 
   itemUpdate(item) {
-    if(this._httpService != null){
-      // console.info('itemChanged2' + item.id, item);
+
+    if (this._httpService != null && item.id != null) {
 
       let config = {width: item.cols, height: item.rows, y_position: item.y, x_position: item.x};
-      // console.log(config);
       this._httpService.updateWidget(config, item.id)
         .subscribe(
           data => this.loadDashboard(),
           error => this.loadDashboard(),
-          () => {}
+          () => {
+          }
         );
-    }}
+    }
+  }
 
   static itemResize(item, scope) {
 
@@ -109,31 +111,36 @@ export class AppComponent implements OnInit {
       sessionStorage.setItem('user', JSON.stringify(this.user));
       this.checkUser(this.authenticatedUser);
       this.loadDashboard();
-      this.loadEvents();
-
     });
   }
 
-  loadEvents() {
+  loadEvents(icalUrl, callback) {
 
-    var that = this;
-    this.calendarService.getEvents()
+    this.calendarService.getEvents(icalUrl)
       .subscribe(
         data => {
           let ical = nodeIcal.parseICS(data.text());
+          let events = [];
 
-          _.forEach(ical, (i: any) => {
+          async.each(ical, (i, aCallback) => {
+
             if (i.type === 'VEVENT') {
               var tmp = {
                 start: i.start,
                 end: i.end,
                 title: i.summary
               };
-              that.events.push(tmp);
+              events.push(tmp);
             }
+
+            aCallback();
+          }, (err) => {
+            callback(events);
           });
         },
-        error => alert('error : ' + error)
+        error => {
+          alert('error : ' + error);
+        }
       );
   }
 
@@ -217,7 +224,7 @@ export class AppComponent implements OnInit {
         this._httpService.postWidget(config)
           .subscribe(
             data => this.loadDashboard(),
-            error => this.loadDashboard(), //Should be alert(error), mais postgRest retourne un erreur meme si le widget est ajouté...Donc fix temporaire
+            error => window.alert(error),
             () => {
               //console.log('Finished')
             }
@@ -278,10 +285,14 @@ export class AppComponent implements OnInit {
       );
   }
 
-  deleteDashboard(arg) {
-    this._httpService.deleteDashboard(this.currentDashboard_id)
+  deleteDashboard(tab) {
+    this._httpService.deleteDashboard(tab.id)
       .subscribe(
         data => {
+          let index = this.dashboards.map(function(e) { return e.id; }).indexOf(tab.id);
+          this.dashboards.splice(index, 1);
+          this.activeDashboardID = 0;
+          this.currentDashboard_id = 0;
           this.loadDashboard();
         },
         error => alert(error),
@@ -310,6 +321,7 @@ export class AppComponent implements OnInit {
   }
 
   loadDashboard() {
+    let that = this;
     this._httpService.getDashboards()
       .subscribe(
         data => {
@@ -325,8 +337,6 @@ export class AppComponent implements OnInit {
               name: group[0].dashboard_name,
               id: group[0].dashboard_id,
               widgets: _.map(group, function (config) {
-                // load events for each calendar widget and insert them into widget object ??
-                // same for list ?
                 return {
                   id: config.widget_id,
                   wtype_id: config.type_id,
@@ -334,17 +344,34 @@ export class AppComponent implements OnInit {
                   y: config.y_position,
                   x: config.x_position,
                   cols: config.width,
-                  rows: config.height
+                  rows: config.height,
+                  properties: {
+                    keyName: config.key_name,
+                    keyValue: config.key_value
+                  }
                 };
               })
             };
           });
+
           this.dashboards = _.sortBy(this.dashboards, function (obj: any) {
             return obj.id;
           });
           this.checkUserDashboard();
-          this.widgets = this.dashboards[this.activeDashboardID].widgets;
-          this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
+
+          async.map(this.dashboards[this.activeDashboardID].widgets, (config: any, callback) => {
+           /* if (config.wtype === 'horaire') {
+              that.loadEvents(config.properties.keyValue, (events) => {
+                config.properties.events = events;
+                callback(null, config);
+              });
+            } else {*/
+              callback(null, config);
+           // }
+          }, (err, results) => {
+            this.widgets = results;
+            this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
+          });
         },
         error => alert(error),
         () => {

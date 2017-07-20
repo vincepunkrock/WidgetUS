@@ -10,3 +10,12 @@
 .dropdown-menu-item {
     cursor:pointer;
 }
+
+.dropdown-menu {
+  padding: 0 0;
+}
+
+.btn {
+  width: 100%;
+  border: 1px transparent;
+}
