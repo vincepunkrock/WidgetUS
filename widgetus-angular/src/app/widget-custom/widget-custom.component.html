@@ -3,6 +3,11 @@
     <gridster-widget-header (itemRemoved)="removeItem($event)" [name]='name'></gridster-widget-header>
   </div>
   <div class="gridster-item-content" style="width: 100%; height: 100%">
-    <iframe [src]="url" width="100%" height="100%"></iframe>
+      <iframe *ngIf="urlOk" [src]="url" width="100%" height="100%"></iframe>
+
+      <div *ngIf="!urlOk">
+        URL: <input type="text" [(ngModel)]="tmp_url"><br>
+        <button (click)="updateUrl()">Submit</button>
+      </div>
   </div>
 </div>
