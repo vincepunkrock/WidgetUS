@@ -15,7 +15,7 @@ import * as async from 'async';
 })
 export class AppComponent implements OnInit {
 
-  authenticatedUser: String = 'gagv2103'; //Hard code parce que pas acces au CAS en local
+  authenticatedUser: String = 'balp2101'; //Hard code parce que pas acces au CAS en local
   user: Object;
 
   options: GridsterConfig;
@@ -36,7 +36,8 @@ export class AppComponent implements OnInit {
     note: 1,
     horaire: 2,
     météo: 3,
-    noteCours: 4
+    noteCours: 4,
+    custom: 5
   };
 
   constructor(private _httpService: HttpService, private homeService: HomeService, private calendarService: CalendarService) {
@@ -212,6 +213,7 @@ export class AppComponent implements OnInit {
   addItem(wname: string, widgettype: string, col: number, row: number) {
     // ici on va pouvoir ajouter dans la BD
     // let config = {cols: 2, rows: 2, type_widget_id: widgettype, dashboard_id: this.currentDashboard_id};
+    alert('addItem ' + widgettype);
     let config = {
       width: col,
       height: row,
@@ -219,7 +221,7 @@ export class AppComponent implements OnInit {
       dashboard_id: this.currentDashboard_id
     };
     if (this.widgets.length < this.MaxWidget) {
-      if (widgettype === 'météo' || widgettype === 'horaire' || widgettype === 'note' || widgettype === 'noteCours') {
+      if (widgettype === 'météo' || widgettype === 'horaire' || widgettype === 'note' || widgettype === 'noteCours' || widgettype === 'custom') {
 
         this._httpService.postWidget(config)
           .subscribe(
@@ -256,10 +258,15 @@ export class AppComponent implements OnInit {
           this.ncols = 2;
           this.nrows = 1;
           break;
+        case 'custom':
+          this.widName = 'Custom';
+          this.ncols = 2;
+          this.nrows = 1;
+          break;
 
         default:
-          widgetType = 'météo';
-          this.widName = 'Météo';
+          widgetType = 'note';
+          this.widName = 'Tâche à faire';
           this.ncols = 2;
           this.nrows = 1;
           break;

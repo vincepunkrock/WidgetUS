@@ -27,6 +27,7 @@ import { WidgetHeaderComponent } from './widget-header/widget-header.component';
 import { WidgetToDoListComponent } from './widget-to-do-list/widget-to-do-list.component';
 import { WidgetToDoItemComponent } from './widget-to-do-item/widget-to-do-item.component';
 import { WidgetNoteComponent } from './widget-note/widget-note.component';
+import { WidgetCustomComponent } from './widget-custom/widget-custom.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { WidgetNoteComponent } from './widget-note/widget-note.component';
     WidgetHeaderComponent,
     WidgetToDoListComponent,
     WidgetToDoItemComponent,
-    WidgetNoteComponent
+    WidgetNoteComponent,
+    WidgetCustomComponent
 
   ],
   imports: [

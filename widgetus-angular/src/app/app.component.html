@@ -11,6 +11,8 @@
     <gridster-widget-calendar [widget]="item" (removed)="removeItem($event, item)" *ngIf="item.wtype == 'horaire'"></gridster-widget-calendar>
     <gridster-widget-note (removed)="removeItem($event, item)" *ngIf="item.wtype == 'noteCours'"></gridster-widget-note>
 
+    <gridster-widget-custom [widget]="item" (removed)="removeItem($event, item)" *ngIf="item.wtype == 'custom'"></gridster-widget-custom>
+
   </gridster-item>
 </gridster>
 
