@@ -213,7 +213,7 @@ export class AppComponent implements OnInit {
   addItem(wname: string, widgettype: string, col: number, row: number) {
     // ici on va pouvoir ajouter dans la BD
     // let config = {cols: 2, rows: 2, type_widget_id: widgettype, dashboard_id: this.currentDashboard_id};
-    alert('addItem ' + widgettype);
+    // alert('addItem ' + widgettype);
     let config = {
       width: col,
       height: row,
