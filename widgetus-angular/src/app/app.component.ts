@@ -367,14 +367,15 @@ export class AppComponent implements OnInit {
           this.checkUserDashboard();
 
           async.map(this.dashboards[this.activeDashboardID].widgets, (config: any, callback) => {
-           /* if (config.wtype === 'horaire') {
+            if (config.wtype === 'horaire') {
+              config.properties.keyValue = "https://www.gel.usherbrooke.ca/horarius/ical?h=vWGRHK15%2Bi7VZimGYG9dpmBhiMkq4r47ffaa8MrrkKE%3D";
               that.loadEvents(config.properties.keyValue, (events) => {
                 config.properties.events = events;
                 callback(null, config);
               });
-            } else {*/
+            } else {
               callback(null, config);
-           // }
+           }
           }, (err, results) => {
             this.widgets = results;
             this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
