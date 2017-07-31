@@ -3,7 +3,6 @@ import {GridsterConfig} from '../lib/gridsterConfig.interface';
 import {HttpService} from './http.service';
 import * as _ from 'underscore';
 import {HomeService} from './home.service';
-import {CalendarService} from './calendar.service';
 import * as nodeIcal from 'node-ical';
 import * as async from 'async';
 
@@ -11,7 +10,7 @@ import * as async from 'async';
   selector: 'gridster-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [HttpService, HomeService, CalendarService]
+  providers: [HttpService, HomeService]
 })
 export class AppComponent implements OnInit {
 
@@ -40,7 +39,7 @@ export class AppComponent implements OnInit {
     custom: 5
   };
 
-  constructor(private _httpService: HttpService, private homeService: HomeService, private calendarService: CalendarService) {
+  constructor(private _httpService: HttpService, private homeService: HomeService) {
   }
 
   static eventStop(item, scope, event) {
@@ -69,18 +68,6 @@ export class AppComponent implements OnInit {
   static itemResize(item, scope) {
 
     //console.info('itemResized', item, scope);
-
-    if (item.wtype == "horaire") {
-
-      let elements = document.getElementsByClassName("fc-scroller fc-time-grid-container");
-      for (let i = 0; i < elements.length; i++) {
-        if (elements[i]) {
-          let el = elements[i] as HTMLElement;
-          el.style.height = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.clientHeight - 170 + "px";
-        }
-      }
-
-    }
   }
 
   static itemInit(item) {
@@ -113,36 +100,6 @@ export class AppComponent implements OnInit {
       this.checkUser(this.authenticatedUser);
       this.loadDashboard();
     });
-  }
-
-  loadEvents(icalUrl, callback) {
-
-    this.calendarService.getEvents(icalUrl)
-      .subscribe(
-        data => {
-          let ical = nodeIcal.parseICS(data.text());
-          let events = [];
-
-          async.each(ical, (i, aCallback) => {
-
-            if (i.type === 'VEVENT') {
-              var tmp = {
-                start: i.start,
-                end: i.end,
-                title: i.summary
-              };
-              events.push(tmp);
-            }
-
-            aCallback();
-          }, (err) => {
-            callback(events);
-          });
-        },
-        error => {
-          alert('error : ' + error);
-        }
-      );
   }
 
   ngOnInit() {
@@ -221,7 +178,7 @@ export class AppComponent implements OnInit {
       dashboard_id: this.currentDashboard_id
     };
     if (this.widgets.length < this.MaxWidget) {
-      if (widgettype === 'météo' || widgettype === 'horaire' || widgettype === 'note' || widgettype === 'noteCours' || widgettype === 'custom') {
+      if (widgettype === 'météo' || widgettype === 'note' || widgettype === 'noteCours' || widgettype === 'custom') {
 
         this._httpService.postWidget(config)
           .subscribe(
@@ -367,15 +324,9 @@ export class AppComponent implements OnInit {
           this.checkUserDashboard();
 
           async.map(this.dashboards[this.activeDashboardID].widgets, (config: any, callback) => {
-            if (config.wtype === 'horaire') {
-              config.properties.keyValue = "https://www.gel.usherbrooke.ca/horarius/ical?h=vWGRHK15%2Bi7VZimGYG9dpmBhiMkq4r47ffaa8MrrkKE%3D";
-              that.loadEvents(config.properties.keyValue, (events) => {
-                config.properties.events = events;
-                callback(null, config);
-              });
-            } else {
-              callback(null, config);
-           }
+        
+            callback(null, config);
+          
           }, (err, results) => {
             this.widgets = results;
             this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;

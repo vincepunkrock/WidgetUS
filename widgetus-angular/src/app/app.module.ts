@@ -20,9 +20,7 @@ import { OpusNavbarComponent } from './opus-navbar/opus-navbar.component';
 import { DashboardTabComponent } from './dashboard-tab/dashboard-tab.component';
 import { DashboardTabsComponent } from './dashboard-tabs/dashboard-tabs.component';
 import { WidgetMeteoComponent } from './widget-meteo/widget-meteo.component';
-import { WidgetCalendarComponent } from './widget-calendar/widget-calendar.component';
 import { HttpModule } from '@angular/http';
-import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar';
 import { WidgetHeaderComponent } from './widget-header/widget-header.component';
 import { WidgetToDoListComponent } from './widget-to-do-list/widget-to-do-list.component';
 import { WidgetToDoItemComponent } from './widget-to-do-item/widget-to-do-item.component';
@@ -37,8 +35,6 @@ import { WidgetCustomComponent } from './widget-custom/widget-custom.component';
     DashboardTabComponent,
     DashboardTabsComponent,
     WidgetMeteoComponent,
-    WidgetCalendarComponent,
-    CalendarComponent,
     WidgetHeaderComponent,
     WidgetToDoListComponent,
     WidgetToDoItemComponent,
