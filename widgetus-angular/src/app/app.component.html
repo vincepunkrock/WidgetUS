@@ -1,6 +1,6 @@
 <gridster-opus-navbar></gridster-opus-navbar>
 
-<gridster-dashboard-tabs [(dashboards)]="dashboards" (onNewDashboard)="onNewDashboard($event)" (deleteDashboard)="deleteDashboard($event)"  (onAddWidget)="onAddWidget($event)" (onChangeActiveTab)="onChangeActiveTab($event)"></gridster-dashboard-tabs>
+<gridster-dashboard-tabs [(dashboards)]="dashboards" (onNewDashboard)="onNewDashboard($event)" (deleteDashboard)="deleteDashboard($event)"  (onAddWidget)="onAddWidget($event)" (onChangeActiveTab)="onChangeActiveTab($event)" [(activeTab)]="activeDashboardName"></gridster-dashboard-tabs>
 
 
 <gridster [options]="options">

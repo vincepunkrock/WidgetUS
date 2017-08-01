@@ -18,7 +18,7 @@ export class DashboardTabsComponent implements OnInit {
 
   newDashboardName = '';
   dashboardNameToDelete = '';
-  activeTab;
+  @Input() activeTab;
 
   constructor() {
   }

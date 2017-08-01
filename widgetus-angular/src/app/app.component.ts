@@ -241,6 +241,8 @@ export class AppComponent implements OnInit {
         data => {
           this.dashboards.push({name: newDashboardName, widgets: []});
           this.loadDashboard();
+          this.onChangeActiveTab(newDashboardName);
+
         },
         error => alert(error),
         () => {
@@ -256,8 +258,9 @@ export class AppComponent implements OnInit {
           let index = this.dashboards.map(function(e) { return e.id; }).indexOf(tab.id);
           this.dashboards.splice(index, 1);
           this.activeDashboardID = 0;
-          this.currentDashboard_id = 0;
+          this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
           this.loadDashboard();
+          console.info(this.activeDashboardName + ' ' + this.activeDashboardID  + ' ' + this.currentDashboard_id);
         },
         error => alert(error),
         () => {
@@ -271,6 +274,7 @@ export class AppComponent implements OnInit {
     this.activeDashboardID = _.indexOf(_.pluck(this.dashboards, 'name'), this.activeDashboardName);
     this.widgets = this.dashboards[this.activeDashboardID].widgets;
     this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
+    console.info(this.activeDashboardName + ' ' + this.activeDashboardID  + ' ' + this.currentDashboard_id);
   }
 
   onTestGet() {
@@ -321,15 +325,17 @@ export class AppComponent implements OnInit {
           this.dashboards = _.sortBy(this.dashboards, function (obj: any) {
             return obj.id;
           });
+
           this.checkUserDashboard();
 
           async.map(this.dashboards[this.activeDashboardID].widgets, (config: any, callback) => {
-        
+
             callback(null, config);
-          
+
           }, (err, results) => {
             this.widgets = results;
             this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
+            this.activeDashboardName = this.dashboards[this.activeDashboardID].name;
           });
         },
         error => alert(error),
