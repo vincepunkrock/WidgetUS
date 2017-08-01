@@ -5,6 +5,7 @@ import * as _ from 'underscore';
 import {HomeService} from './home.service';
 import * as nodeIcal from 'node-ical';
 import * as async from 'async';
+import {reject} from "q";
 
 @Component({
   selector: 'gridster-root',
@@ -57,7 +58,7 @@ export class AppComponent implements OnInit {
       let config = {width: item.cols, height: item.rows, y_position: item.y, x_position: item.x};
       this._httpService.updateWidget(config, item.id)
         .subscribe(
-          data => this.loadDashboard(),
+          data => this.updateDashboardObject(),
           error => console.error('itemUpdate - ERROR - ' + error),
           () => {
           }
@@ -66,7 +67,6 @@ export class AppComponent implements OnInit {
   }
 
   static itemResize(item, scope) {
-
     //console.info('itemResized', item, scope);
   }
 
@@ -168,9 +168,7 @@ export class AppComponent implements OnInit {
   }
 
   addItem(wname: string, widgettype: string, col: number, row: number) {
-    // ici on va pouvoir ajouter dans la BD
-    // let config = {cols: 2, rows: 2, type_widget_id: widgettype, dashboard_id: this.currentDashboard_id};
-    // alert('addItem ' + widgettype);
+
     let config = {
       width: col,
       height: row,
@@ -182,8 +180,18 @@ export class AppComponent implements OnInit {
 
         this._httpService.postWidget(config)
           .subscribe(
-            data => this.loadDashboard(),
-            error => window.alert(error),
+            data => {
+              this.updateDashboardObject().then(
+                (success) => {
+                  if (success) {
+                    let widgetNb = this.dashboards[this.activeDashboardID].widgets.length;
+                    this.widgets.push(this.dashboards[this.activeDashboardID].widgets[widgetNb - 1]);
+                  }
+                });
+            },
+            error => {
+              window.alert(error);
+            },
             () => {
               //console.log('Finished')
             }
@@ -345,7 +353,8 @@ export class AppComponent implements OnInit {
 
   // Same thing of loadDashboard() BUT doesn't have  this.widgets = results;  SO the widgets are not all refreshed
   updateDashboardObject() {
-    let that = this;
+    return new Promise((resolve, reject) => {
+
     this._httpService.getDashboards()
       .subscribe(
         data => {
@@ -382,20 +391,16 @@ export class AppComponent implements OnInit {
             return obj.id;
           });
 
-          async.map(this.dashboards[this.activeDashboardID].widgets, (config: any, callback) => {
-
-            callback(null, config);
-
-          }, (err, results) => {
-            this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
-            this.activeDashboardName = this.dashboards[this.activeDashboardID].name;
-          });
+          this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
+          this.activeDashboardName = this.dashboards[this.activeDashboardID].name;
+          resolve(true);
         },
-        error => console.error('updateDashboard - ERROR - ' + error),
-        () => {
-          // console.log('Finished')
+        error => {
+          console.error('updateDashboard - ERROR - ' + error);
+          reject(true);
         }
       );
+    });
   }
 
   checkUser(cip) {
