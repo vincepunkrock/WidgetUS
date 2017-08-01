@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
       this._httpService.updateWidget(config, item.id)
         .subscribe(
           data => this.loadDashboard(),
-          error => this.loadDashboard(),
+          error => console.error('itemUpdate - ERROR - ' + error),
           () => {
           }
         );
@@ -157,7 +157,7 @@ export class AppComponent implements OnInit {
     this._httpService.deleteWidget(item.id)
       .subscribe(
         data => {
-          this.loadDashboard();
+          this.updateDashboardObject();
         },
         error => alert(error),
         () => {
@@ -326,8 +326,6 @@ export class AppComponent implements OnInit {
             return obj.id;
           });
 
-          this.checkUserDashboard();
-
           async.map(this.dashboards[this.activeDashboardID].widgets, (config: any, callback) => {
 
             callback(null, config);
@@ -339,6 +337,61 @@ export class AppComponent implements OnInit {
           });
         },
         error => alert(error),
+        () => {
+          // console.log('Finished')
+        }
+      );
+  }
+
+  // Same thing of loadDashboard() BUT doesn't have  this.widgets = results;  SO the widgets are not all refreshed
+  updateDashboardObject() {
+    let that = this;
+    this._httpService.getDashboards()
+      .subscribe(
+        data => {
+          // this.getData = JSON.stringify(data);
+
+          let groups = _.groupBy(data, function (value: any) {
+            return value.cip + '#' + value.dashboard_name;
+          });
+
+          this.dashboards = _.map(groups, function (group) {
+            return {
+              cip: group[0].cip,
+              name: group[0].dashboard_name,
+              id: group[0].dashboard_id,
+              widgets: _.map(group, function (config) {
+                return {
+                  id: config.widget_id,
+                  wtype_id: config.type_id,
+                  wtype: config.widget_type,
+                  y: config.y_position,
+                  x: config.x_position,
+                  cols: config.width,
+                  rows: config.height,
+                  properties: {
+                    keyName: config.key_name,
+                    keyValue: config.key_value
+                  }
+                };
+              })
+            };
+          });
+
+          this.dashboards = _.sortBy(this.dashboards, function (obj: any) {
+            return obj.id;
+          });
+
+          async.map(this.dashboards[this.activeDashboardID].widgets, (config: any, callback) => {
+
+            callback(null, config);
+
+          }, (err, results) => {
+            this.currentDashboard_id = this.dashboards[this.activeDashboardID].id;
+            this.activeDashboardName = this.dashboards[this.activeDashboardID].name;
+          });
+        },
+        error => console.error('updateDashboard - ERROR - ' + error),
         () => {
           // console.log('Finished')
         }
@@ -372,10 +425,6 @@ export class AppComponent implements OnInit {
           // console.log('Finished');
         }
       );
-  }
-
-  checkUserDashboard() {
-    // alert(JSON.stringify(this.dashboards));
   }
 
 }
