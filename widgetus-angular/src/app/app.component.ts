@@ -185,7 +185,10 @@ export class AppComponent implements OnInit {
                 (success) => {
                   if (success) {
                     let widgetNb = this.dashboards[this.activeDashboardID].widgets.length;
-                    this.widgets.push(this.dashboards[this.activeDashboardID].widgets[widgetNb - 1]);
+                    let tmpWidgets = _.sortBy(this.dashboards[this.activeDashboardID].widgets, function (obj: any) {
+                      return obj.id;
+                    });
+                    this.widgets.push(tmpWidgets[widgetNb - 1]);
                   }
                 });
             },
