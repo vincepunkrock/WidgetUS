@@ -25,9 +25,9 @@ export class WidgetToDoListComponent implements OnInit {
     this.name = 'Tâches à faire';
 
     this.ToDoList = [
-     'Faire le lavage',
-     'Inscription au gym',
-     'Faire les lectures pour APP4'
+     'http://www.gel.usherbrooke.ca/s6info/e17/doc/projet/',
+     'https://drive.google.com/embeddedfolderview?id=0B7R2gk2Et7gCdks3R1g2Q1ZDWjg#list',
+     'https://www.gel.usherbrooke.ca/depot/index.php?dir=e17%2Fs6info%2FProjet_Sprint2%2F'
     ];
   }
 

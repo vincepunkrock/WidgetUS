@@ -4,14 +4,14 @@
 
 
 <gridster [options]="options">
-  <gridster-item [item]="item" *ngFor="let item of widgets" (itemUpdate)="itemUpdate($event)">
-
-    <gridster-widget-meteo (removed)="removeItem($event, item)" *ngIf="item.wtype == 'météo'"></gridster-widget-meteo>
-    <gridster-widget-to-do-list (removed)="removeItem($event, item)" *ngIf="item.wtype == 'note'"></gridster-widget-to-do-list>
-    <gridster-widget-note (removed)="removeItem($event, item)" *ngIf="item.wtype == 'noteCours'"></gridster-widget-note>
-
-    <gridster-widget-custom [widget]="item" (removed)="removeItem($event, item)" *ngIf="item.wtype == 'custom'"></gridster-widget-custom>
-
-  </gridster-item>
+    <ng-container *ngFor="let item of widgets">
+      <gridster-item [item]="item" *ngIf="item.wtype != null" (itemUpdate)="itemUpdate($event)">
+      <gridster-widget-meteo (removed)="removeItem($event, item)" *ngIf="item.wtype == 'météo'"></gridster-widget-meteo>
+      <gridster-widget-to-do-list (removed)="removeItem($event, item)" *ngIf="item.wtype == 'note'"></gridster-widget-to-do-list>
+      <gridster-widget-note (removed)="removeItem($event, item)" *ngIf="item.wtype == 'noteCours'"></gridster-widget-note>
+      <gridster-widget-custom [widget]="item" (removed)="removeItem($event, item)" *ngIf="item.wtype == 'custom'"></gridster-widget-custom>
+    </gridster-item>
+  </ng-container>
+  
 </gridster>
 

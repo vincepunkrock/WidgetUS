@@ -435,4 +435,8 @@ export class AppComponent implements OnInit {
       );
   }
 
+  debug(item){
+    console.log(item);
+  }
+
 }
